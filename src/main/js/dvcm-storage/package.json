@@ -1,0 +1,9 @@
+{
+  "name": "dvcm-storage",
+  "version": "0.0.0",
+  "dependencies": {
+    "dvcm":"file:../dvcm",
+    "modeling-storage":"file:../modeling-storage"
+  },
+  "main": "index.js"
+}
