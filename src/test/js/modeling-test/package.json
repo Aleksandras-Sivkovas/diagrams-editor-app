@@ -8,7 +8,8 @@
     "react-dom": "^16.0.0",
     "modeling": "file:../../../main/js/modeling",
     "modeling-test-style": "file:../../css/modeling-test-style",
-    "modeling-storage-local": "file:../../../main/js/modeling-storage-local"
+    "modeling-storage-local": "file:../../../main/js/modeling-storage-local",
+    "modeling-storage": "file:../../../main/js/modeling-storage"
   },
   "main":"index.js"
 }

@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
 import {Edge,Column,Row} from "modeling";
-import {LocalStorage} from "modeling-storage-local"
+import {Storage} from "modeling-storage";
+import {localStorage} from "modeling-storage-local";
 
 import MovableNode from './model/MovableNode.js';
 import TestViewFactory from './view/TestViewFactory.js';
@@ -83,7 +84,12 @@ const app =(
 );
 render(app,document.getElementById('app'));
 
+@localStorage
+class LocalStorage extends Storage{
+
+}
 const storage = new LocalStorage();
+
 storage.onLoad = function(response){
   // console.log(response.response.responseText);
   const node = response.model.root;

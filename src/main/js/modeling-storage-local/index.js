@@ -1,1 +1,1 @@
-export {default as LocalStorage} from "./LocalStorage.js";
+export {default as localStorage} from "./localStorage.js";

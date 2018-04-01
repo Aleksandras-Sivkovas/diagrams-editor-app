@@ -1,11 +1,9 @@
 import {saveAs} from "file-saver";
-import {Storage} from "modeling-storage";
-
 const fileDialog = require('file-dialog');
 
-export default class LocalStorage extends Storage{
+const localStorage = function(target){
 
-  saveToStore(fileString,name){
+  target.prototype.saveToStore = function(fileString,name){
     var blob = new Blob([fileString], {type : 'application/json'});
     saveAs(blob, name+'.json');
     if(this.onsave){
@@ -13,7 +11,7 @@ export default class LocalStorage extends Storage{
     }
   }
 
-  load(){
+  target.prototype.load = function(){
     const loadFunction = this.loadModel.bind(this);
     fileDialog({ multiple: false, accept: '.json' })
     .then(files => {
@@ -31,3 +29,4 @@ export default class LocalStorage extends Storage{
     });
   }
 };
+export default localStorage;
