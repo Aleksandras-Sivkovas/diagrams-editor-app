@@ -36,7 +36,7 @@ export default class ModelConverter extends Converter {
           target: idMap.get(relation.target)
         }
       );
-      const relationModel = converter.convertToModel(relation,model);
+      const relationModel = converter.convertToModel(fixedRelation,model);
       model.addRelation(relationModel);
     }
 

@@ -1,6 +1,6 @@
 import {Pool} from "dvcm";
 
-import NodeConverter from "modeling-storage";
+import {NodeConverter} from "modeling-storage";
 
 export default class PoolConverter extends NodeConverter {
 

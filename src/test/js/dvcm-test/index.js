@@ -3,6 +3,10 @@ import { render } from 'react-dom';
 
 import {DVCMView,DVCM,DVCMViewFactory,Activity,Pool,SequenceFlow, StartEvent,
   EndEvent} from "dvcm";
+
+import {DVCMStorage} from "dvcm-storage";
+import {localStorage} from "modeling-storage-local";
+
 import 'dvcm-test-style';
 
 const dvcm = new DVCM();
@@ -87,3 +91,22 @@ const app =(
   </div>
 );
 render(app,document.getElementById('app'));
+
+@localStorage
+class LocalStorage extends DVCMStorage{
+
+}
+const storage = new LocalStorage();
+window.model = dvcm.model;
+storage.onLoad = function(response){
+  // console.log(response.response.responseText);
+  const dvcm = response.model.root;
+  window.model = dvcm.model;
+  const app =(
+    <div>
+      <DVCMView component={dvcm} viewFactory={viewFactory} class="diagram" />
+    </div>
+  );
+  render(app,document.getElementById('app'));
+}
+window.storage = storage;

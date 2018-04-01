@@ -1,6 +1,6 @@
 import {Event} from "dvcm";
 
-import NodeConverter from "modeling-storage";
+import {NodeConverter} from "modeling-storage";
 
 export default class EventConverter extends NodeConverter {
 

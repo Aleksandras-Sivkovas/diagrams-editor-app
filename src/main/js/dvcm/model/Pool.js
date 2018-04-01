@@ -37,6 +37,9 @@ export default class Pool extends Column {
 	}
 
 	set height(height){
+		if(!this.parent){
+			return;
+		}
 		if(this.parent.rootPoolsHeight){
 			this.parent.rootPoolsHeight = height;
 		}

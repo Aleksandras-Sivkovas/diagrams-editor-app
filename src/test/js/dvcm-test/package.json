@@ -7,7 +7,9 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "dvcm": "file:../../../main/js/dvcm",
-    "dvcm-test-style": "file:../../css/dvcm-test-style"
+    "dvcm-test-style": "file:../../css/dvcm-test-style",
+    "modeling-storage-local": "file:../../../main/js/modeling-storage-local",
+    "dvcm-storage": "file:../../../main/js/dvcm-storage"
   },
   "main":"index.js"
 }

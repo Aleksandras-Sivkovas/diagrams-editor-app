@@ -1,6 +1,6 @@
 import {DVCM} from "dvcm";
 
-import NodeConverter from "modeling-storage";
+import {NodeConverter} from "modeling-storage";
 
 export default class DVCMConverter extends NodeConverter {
 

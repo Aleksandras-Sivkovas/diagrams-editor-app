@@ -1,6 +1,6 @@
 import {Activity} from "dvcm";
 
-import NodeConverter from "modeling-storage";
+import {NodeConverter} from "modeling-storage";
 
 export default class ActivityConverter extends NodeConverter {
 
