@@ -1,0 +1,8 @@
+{
+  "name": "dvcm-test-style",
+  "version": "0.0.0",
+  "main":"index.css",
+  "dependencies": {
+    "dvcm-style": "file:../../../main/css/dvcm-style"
+  }
+}

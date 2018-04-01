@@ -1,0 +1,10 @@
+.diagram .modeling-component{
+  display:block;
+  position:absolute;
+  cursor:pointer;
+  overflow:hidden;
+
+  border-style: solid;
+  border-color:black;
+  z-index:50;
+}

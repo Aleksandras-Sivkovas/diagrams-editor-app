@@ -1,0 +1,10 @@
+{
+  "name": "modeling-storage",
+  "version": "0.0.0",
+  "dependencies": {
+    "file-dialog": "0.0.7",
+    "file-saver": "^1.3.8",
+    "modeling":"file:../modeling"
+  },
+  "main": "index.js"
+}

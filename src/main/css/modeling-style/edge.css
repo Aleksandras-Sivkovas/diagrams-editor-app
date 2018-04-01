@@ -1,0 +1,36 @@
+@import "join-point.css";
+.diagram .edge{
+  overflow:visible;
+  border-top: solid black 1px;
+  border-bottom: none;
+  border-left: none;
+  border-right:none;
+  z-index:100;
+}
+
+.diagram .edge>.selection-helper{
+  height:20px;
+  position:absolute;
+  top:-10px;
+  width:90%;
+}
+
+.diagram .edge.selected{
+  border-top: solid black 3px;
+  border-bottom: none;
+  border-left: none;
+  border-right:none;
+}
+.diagram .edge-end-right {
+  position:absolute;
+  top:-8px;
+	right:0px;
+	width:0;
+	height:0;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+	border-left: 10px solid #000000;
+}
+.diagram .selected .edge-end-right{
+  display:none;
+}

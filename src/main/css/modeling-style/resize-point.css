@@ -1,0 +1,50 @@
+.diagram .resize-point-right-bottom,
+.diagram .resize-point-bottom,
+.diagram .resize-point-right{
+  display:none;
+  border-style: solid;
+  border-color: black;
+  position:absolute;
+  z-index:100;
+}
+
+.diagram .selected>.resize-point-right-bottom,
+.diagram .selected>.resize-point-bottom,
+.diagram .selected>.resize-point-right{
+  display:block;
+}
+
+.diagram .selected>.resize-point-right-bottom{
+  border-width: 5px;
+  width:20px;
+  height:20px;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  cursor:nwse-resize;
+  bottom:0px;
+  right:0px;
+}
+
+.diagram .selected>.resize-point-bottom{
+  border-width: 3px;
+  width:90%;
+  height:5px;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color:transparent;
+  cursor:row-resize;
+  left:5%;
+  bottom:0px;
+}
+
+.diagram .selected>.resize-point-right{
+  border-width: 3px;
+  width:5px;
+  height:90%;
+  border-top-color:transparent;
+  border-left-color:transparent;
+  border-bottom-color:transparent;
+  cursor:col-resize;
+  top:5%;
+  right:0px;
+}

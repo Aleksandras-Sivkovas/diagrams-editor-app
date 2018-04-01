@@ -1,0 +1,8 @@
+{
+  "name": "modeling-test-style",
+  "version": "0.0.0",
+  "main":"index.css",
+  "dependencies": {
+    "modeling-style": "file:../../../main/css/modeling-style"
+  }
+}

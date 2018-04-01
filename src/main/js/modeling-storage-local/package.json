@@ -1,0 +1,8 @@
+{
+  "name": "modeling-storage-local",
+  "version": "0.0.0",
+  "dependencies": {
+    "modeling":"file:../modeling-storage"
+  },
+  "main": "index.js"
+}

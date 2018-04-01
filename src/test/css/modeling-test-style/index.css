@@ -1,0 +1,10 @@
+@import "~modeling-style";
+
+.diagram{
+  width:900px;
+  height:900px;
+}
+
+.diagram .movable-component{
+  background-color: #FFFFFF;
+}
