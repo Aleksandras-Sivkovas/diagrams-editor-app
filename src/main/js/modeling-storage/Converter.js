@@ -7,36 +7,36 @@ export default class Converter {
   _classTree;
   classId;
 
-  convertToModel(object,model){
-  }
-
-  convertToObject(model,object){
-    if(!object){
-      object = {};
-    }
-    object.classId = this.classId;
-    return object;
-  }
 
   constructor(){
       this._registeredClasses = new Map();
       this._classTree = [];
-      this.registerClasses();
+      if(this.registerClasses) this.registerClasses();
+      if(this.getClassId) this.classId = this.getClassId();
   }
 
+  convertToModel(){
+    return this.createModelInstance();
+  }
+
+  convertToObject(){
+    return {
+        classId : this.classId
+    };
+  }
+
+  createModelInstance(){
+    return null;
+  }
   getConverterByObject(object){
-    return this.getLeaf(object).converter;
+    return this._getLeaf(object).converter;
   }
 
   getConverterByClassId(classId){
-    return _registeredClasses.get(classId).converter;
+    return this._registeredClasses.get(classId).converter;
   }
 
-  getClassInstance(id){
-    return this._registeredClasses.get(id).classInstance;
-  }
-
-  getLeaf(classObject){
+  _getLeaf(classObject){
     let leavesToSearch = this._classTree;
     let theLeaf = null;
     for(let i=0;i<leavesToSearch.length;){
@@ -50,12 +50,6 @@ export default class Converter {
       leavesToSearch = leaf.leaves;
     }
     return theLeaf;
-  }
-
-  getClassId(classObject){
-    const leaf = this.getLeaf(classObject);
-    if(!leaf) return null;
-    return leaf.classId;
   }
 
   _registerLeafInTree(newLeaf, parentLeaves){
@@ -75,14 +69,17 @@ export default class Converter {
   }
 
   registerClass(properties){
-    properties.objectInstance = new properties.classInstance();
+    if(this._registeredClasses.get(properties.converter.classId)){
+      // TODO: to change to new or leave like this
+      return;
+    }
+
+    properties.objectInstance = new properties.converter.createModelInstance();
     properties.leaves = [];
-    this._registeredClasses.set(properties.classId,properties);
+
+    this._registeredClasses.set(properties.converter.classId,properties);
+
     this._registerLeafInTree(properties,this._classTree);
-  }
-
-  registerClasses(){
-
   }
 
 };

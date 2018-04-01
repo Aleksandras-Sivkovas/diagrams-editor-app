@@ -3,7 +3,7 @@ import {Column,Component,Edge,HierarchyRelation,Model,Node,Point,
 
 import Converter from "./Converter.js"
 
-
+TODO: delete this file
 export default class ModelingConverter extends Converter{
 
 

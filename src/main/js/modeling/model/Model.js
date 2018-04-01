@@ -160,12 +160,16 @@ export default class Model {
 		}
 	}
 
+	@action
+	addRelation(relation){
+		let id = this.generateId();
+    relation.id = id;
+    relation.model = this;
+    this._componentMap.set(id,relation);
+	}
   @action
   addEdge(edge) {
-    let id = this.generateId();
-    edge.id = id;
-    edge.model = this;
-    this._componentMap.set(id,edge);
+    this.addRelation(edge);
 	}
 
   _removeEdge(edge){

@@ -5,6 +5,12 @@ import Point from "./Point.js";
 
 export default class Node extends Component {
 
+	constructor(){
+		super();
+		this._position = new Point();
+		this.createModel();
+	}
+	
 	@observable
 	_position = null;
 
@@ -123,12 +129,6 @@ export default class Node extends Component {
 	get children(){
     return this.getChildren();
   }
-
-	constructor(){
-		super();
-		this._position = new Point();
-		this.createModel();
-	}
 
 	createModel(){
 		this.model = new Model();

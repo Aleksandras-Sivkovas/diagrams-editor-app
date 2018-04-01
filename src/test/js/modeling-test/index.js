@@ -74,8 +74,6 @@ columns.append(r1);
 
 
 window.model = model;
-const storage = new LocalStorage();
-window.storage = storage;
 
 const viewFactory = new TestViewFactory();
 const app =(
@@ -85,7 +83,15 @@ const app =(
 );
 render(app,document.getElementById('app'));
 
-// $("#save-btn").click(function() {
-//   var blob = new Blob(["test text"], {type: "text/plain;charset=utf-8"});
-//   saveAs(blob, "testfile1.txt");
-// });
+const storage = new LocalStorage();
+storage.onLoad = function(response){
+  // console.log(response.response.responseText);
+  const node = response.model.root;
+  const app =(
+    <div>
+      <TestComponent component={node} viewFactory={viewFactory} class="diagram" />
+    </div>
+  );
+  render(app,document.getElementById('app'));
+}
+window.storage = storage;

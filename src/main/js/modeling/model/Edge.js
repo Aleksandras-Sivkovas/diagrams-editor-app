@@ -1,4 +1,4 @@
-import {observable} from "mobx";
+import {observable,action} from "mobx";
 import Relation from "./Relation.js";
 import Point from "./Point.js";
 
@@ -23,6 +23,7 @@ export default class Edge extends Relation {
 		this.targetPoint = new Point();
 	}
 
+	@action
 	addBendPoint(x,y){
 		this.bendPoints.push(new Point(x,y));
 	}

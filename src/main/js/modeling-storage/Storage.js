@@ -1,4 +1,4 @@
-import Converter from "./Converter.js"
+import ModelConverter from "./ModelConverter.js"
 
 export default class Storage {
 
@@ -11,7 +11,7 @@ export default class Storage {
   }
 
   createConverter(){
-    return new Converter();
+    return new ModelConverter();
   }
 
   _convertStoreObjectToString(storeObject){
@@ -19,7 +19,7 @@ export default class Storage {
   }
 
   _convertModelToStoreObject(model){
-    return this.converter.addPropertiesToStoreObject(model);
+    return this.converter.convertToObject(model);
   }
 
   saveToStore(fileString,name){
@@ -27,7 +27,7 @@ export default class Storage {
   }
 
   _convertStoreObjectToModel(storeObject){
-    return this.converter.addPropertiesToModel(storeObject);
+    return this.converter.convertToModel(storeObject);
   }
 
   loadModel(response){
