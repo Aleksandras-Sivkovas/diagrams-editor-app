@@ -10,7 +10,7 @@ export default class Node extends Component {
 		this._position = new Point();
 		this.createModel();
 	}
-	
+
 	@observable
 	_position = null;
 
@@ -129,6 +129,11 @@ export default class Node extends Component {
 	get children(){
     return this.getChildren();
   }
+
+	@computed
+	get descendants(){
+		this.model.getDescendants(this);
+	}
 
 	createModel(){
 		this.model = new Model();

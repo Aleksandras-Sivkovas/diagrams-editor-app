@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 import {DVCMView,DVCM,DVCMViewFactory,Activity,Pool,SequenceFlow, StartEvent,
-  EndEvent} from "dvcm";
+  EndEvent,Transaction} from "dvcm";
 
 import {DVCMStorage} from "dvcm-storage";
 import {localStorage} from "modeling-storage-local";
@@ -10,8 +10,8 @@ import {localStorage} from "modeling-storage-local";
 import 'dvcm-test-style';
 
 const dvcm = new DVCM();
-dvcm.processes.width = 150;
-dvcm.functions.width = 600;
+dvcm.processesPool.width = 150;
+dvcm.functionsPool.width = 600;
 const viewFactory = new DVCMViewFactory();
 
 const d1 = new Pool("Department1");
@@ -20,24 +20,24 @@ const d2 = new Pool("Department2");
 d2.width = 200;
 const d3 = new Pool("Department3");
 d3.width = 200;
-dvcm.functions.append(d1);
-dvcm.functions.append(d2);
-dvcm.functions.append(d3);
+dvcm.functionsPool.append(d1);
+dvcm.functionsPool.append(d2);
+dvcm.functionsPool.append(d3);
 
 const start = new StartEvent();
 start.position.x = 50;
 start.position.y = 20;
-dvcm.processes.append(start);
+dvcm.processesPool.append(start);
 
 const end = new EndEvent();
 end.position.x = 50;
 end.position.y = 300;
-dvcm.processes.append(end);
+dvcm.processesPool.append(end);
 
 const p1 = new Activity('P1.');
 p1.position.x = 50;
 p1.position.y = 120;
-dvcm.processes.append(p1);
+dvcm.processesPool.append(p1);
 
 const f1 = new Activity('F1.');
 f1.position.x = 20;
@@ -84,6 +84,14 @@ const flow_f1_2_to_p1 = new SequenceFlow();
 flow_f1_2_to_p1.source = f1_2;
 flow_f1_2_to_p1.target = p1;
 dvcm.model.addEdge(flow_f1_2_to_p1);
+
+const transaction = new Transaction();
+transaction.activities.push(p1);
+transaction.activities.push(f1);
+transaction.activities.push(f1_1);
+transaction.activities.push(f1_2);
+dvcm.model.addComponent(transaction);
+
 
 const app =(
   <div>

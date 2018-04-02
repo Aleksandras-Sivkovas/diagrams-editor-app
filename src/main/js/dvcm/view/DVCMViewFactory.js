@@ -7,6 +7,7 @@ import DVCMView from './DVCMView.js';
 import PoolView from './PoolView.js';
 import ActivityView from './ActivityView.js';
 import SequenceFlowView from './SequenceFlowView.js';
+import TransactionView from './TransactionView.js';
 
 import EndEvent from "../model/EndEvent.js";
 import StartEvent from "../model/StartEvent.js";
@@ -15,6 +16,7 @@ import DVCM from '../model/DVCM.js';
 import Pool from '../model/Pool.js';
 import Activity from '../model/Activity.js';
 import SequenceFlow from '../model/SequenceFlow.js';
+import Transaction from "../model/Transaction.js";
 
 
 import {ViewFactory} from 'modeling'
@@ -49,5 +51,13 @@ export default class DVCMViewFactory extends ViewFactory {
     }
     return super.getNodeViewClass(node);
   }
+
+  addViews(model,viewsList) {
+    if(model instanceof Transaction){
+			viewsList.push(<TransactionView component={model} key={model.id} viewFactory={this}/>);
+			return;
+		}
+		super.addViews(...arguments);
+	}
 
 };

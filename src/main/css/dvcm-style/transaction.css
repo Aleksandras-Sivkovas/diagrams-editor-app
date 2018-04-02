@@ -1,0 +1,29 @@
+.diagram .modeling-component.transaction{
+  overflow:visible;
+  z-index:100;
+}
+
+.diagram .modeling-component.transaction .transaction-border{
+  overflow:visible;
+  border-top-style: dashed;
+  border-top-color: black;
+  border-top-width: 1px;
+  border-bottom: none;
+  border-left: none;
+  border-right:none;
+  z-index:100;
+  border-radius:50%;
+  height:10px
+}
+
+.diagram .modeling-component.transaction.selected .transaction-border{
+  border-top-width: 3px;
+}
+
+/*.diagram .modeling-component.transaction .transaction-border .selection-helper{
+  height:20px;
+  position:absolute;
+  top:0px;
+  left:5%;
+  width:90%;
+}*/

@@ -77,11 +77,11 @@ export default class Model {
     return this._nextId++;
 	}
 
-	_getDescendants(node){
+	getDescendants(node){
 		const descendants = [];
 		const children = this.getChildren(node);
 		for(let child of children){
-			descendants.push(child,...this._getDescendants(child));
+			descendants.push(child,...this.getDescendants(child));
 		}
 		return descendants;
 	}
@@ -93,7 +93,7 @@ export default class Model {
 		if(!(parent instanceof Node)){
 			return null;
 		}
-		const contains = this._getDescendants(this.root).filter(node => (node.id == parent.id));
+		const contains = this.getDescendants(this.root).filter(node => (node.id == parent.id));
 		if((parent == this.root) || (contains.length > 0)){
 			return parent;
 		}
@@ -161,11 +161,16 @@ export default class Model {
 	}
 
 	@action
-	addRelation(relation){
+	addComponent(component){
 		let id = this.generateId();
-    relation.id = id;
-    relation.model = this;
-    this._componentMap.set(id,relation);
+    component.id = id;
+    component.model = this;
+    this._componentMap.set(id,component);
+	}
+
+	@action
+	addRelation(relation){
+		this.addComponent(relation);
 	}
   @action
   addEdge(edge) {
