@@ -1,0 +1,15 @@
+import {observable, computed} from "mobx";
+import {Node} from 'modeling';
+
+export default class UseCases extends Node {
+
+	@observable
+	name = "UseCases"
+
+	constructor(name){
+		super(...arguments);
+		this.name = name;
+	}
+
+		
+};

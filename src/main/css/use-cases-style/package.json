@@ -1,0 +1,8 @@
+{
+  "name": "use-cases-style",
+  "version": "0.0.0",
+  "main":"index.css",
+  "dependencies": {
+    "modeling-style": "file:../modeling-style"
+  }
+}

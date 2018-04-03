@@ -24,6 +24,7 @@
     "dev": "webpack-dev-server",
     "dev_modeling" : "moduleView=modeling webpack-dev-server",
     "dev_dvcm" : "moduleView=dvcm webpack-dev-server",
+    "dev_usecases" : "moduleView=use_cases webpack-dev-server",
     "build": "NODE_ENV=production webpack --progress -p"
   },
   "dependencies": {

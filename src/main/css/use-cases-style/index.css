@@ -1,0 +1,9 @@
+@import "~modeling-style";
+
+@import "actor.css";
+@import "use-case.css";
+@import "system.css";
+
+.modeling-component.use-cases{
+  background-color:#FFFFFF;
+}

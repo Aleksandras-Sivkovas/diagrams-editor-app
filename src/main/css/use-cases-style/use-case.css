@@ -1,9 +1,10 @@
-.dvcm  .modeling-component.activity{
-  border-radius:10px;
+.use-cases  .modeling-component.use-case{
+  border-radius:50%;
   border-style:solid;
   display:flex;
   justify-content:center;
   align-items:center;
   text-align:center;
   background-color:#FFFFFF;
+  overflow:visible;
 }

@@ -1,9 +1,9 @@
-.diagram .modeling-component.pool{
+.dvcm  .modeling-component.pool{
   background-color:#FFFFFF;
   cursor:default;
 }
 
-.diagram .modeling-component.pool .name-div{
+.dvcm  .modeling-component.pool .name-div{
   font-size:20px;
 	text-align:center;
 	height:60px;
@@ -11,7 +11,7 @@
 	border-bottom:solid black 1px;
 	overflow:hidden;
 }
-.diagram .modeling-component.pool .content-div{
+.dvcm  .modeling-component.pool .content-div{
   position:absolute;
   overflow:hidden;
   width:100%;

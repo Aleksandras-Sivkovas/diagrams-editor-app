@@ -1,9 +1,9 @@
-.diagram .modeling-component.transaction{
+.dvcm  .modeling-component.transaction{
   overflow:visible;
   z-index:100;
 }
 
-.diagram .modeling-component.transaction .transaction-border{
+.dvcm  .modeling-component.transaction .transaction-border{
   overflow:visible;
   border-top-style: dashed;
   border-top-color: black;
@@ -16,11 +16,11 @@
   height:10px
 }
 
-.diagram .modeling-component.transaction.selected .transaction-border{
+.dvcm  .modeling-component.transaction.selected .transaction-border{
   border-top-width: 3px;
 }
 
-/*.diagram .modeling-component.transaction .transaction-border .selection-helper{
+/*.dvcm  .modeling-component.transaction .transaction-border .selection-helper{
   height:20px;
   position:absolute;
   top:0px;

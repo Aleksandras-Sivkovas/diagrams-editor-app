@@ -1,18 +1,18 @@
-.diagram .event {
+.dvcm  .event {
     border-radius: 50%;
     background-color: #FFFFFF;
 }
 
-.diagram .event.start-event {
+.dvcm  .event.start-event {
 }
 
-.diagram .event.end-event {
+.dvcm  .event.end-event {
     display:flex;
     justify-content:center;
     align-items:center;
 }
 
-.diagram .event.end-event .inner {
+.dvcm  .event.end-event .inner {
     border-radius: 50%;
     width: 80%;
     height: 80%;

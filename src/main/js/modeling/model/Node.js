@@ -136,7 +136,7 @@ export default class Node extends Component {
 	}
 
 	createModel(){
-		const modelClass = this.getModelClass()
+		const modelClass = this.getModelClass();
 		this.model = new modelClass();
 		this.model.addAsRoot(this);
 	}

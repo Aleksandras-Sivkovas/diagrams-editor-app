@@ -4,7 +4,6 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 let values;
 let config;
-
 switch(process.env.moduleView) {
     case "modeling":{
       values = {
@@ -32,6 +31,19 @@ switch(process.env.moduleView) {
       };
       }
       break;
+      case "use_cases":{
+        values = {
+          INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
+        };
+        config = {
+          entry : path.join(__dirname, 'src/test/js/use-cases-test/index.js'),
+          output: {
+            path: path.resolve(__dirname, 'dist/use-cases-test'),
+            filename: 'use-cases-test.js',
+          },
+        };
+        }
+        break;
     default:{
       values = {
         INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')

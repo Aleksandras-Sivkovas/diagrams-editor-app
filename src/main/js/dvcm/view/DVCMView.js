@@ -6,6 +6,10 @@ import Transaction from "../model/Transaction.js";
 @select
 export default class DVCMView extends NodeView {
 
+	getStyleClass(){
+    return super.getStyleClass() + " dvcm";
+  }
+
 	getCss() {
 		const css = super.getCss();
 		css.borderWidth = '1px';
