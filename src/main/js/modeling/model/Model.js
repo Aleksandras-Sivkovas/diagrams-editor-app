@@ -34,6 +34,11 @@ export default class Model {
   }
 
 	@computed
+	get edges(){
+    return this.getEdges();
+  }
+
+	@computed
 	get relations(){
     return this.getRelations();
   }
@@ -49,7 +54,7 @@ export default class Model {
       return;
     }
     for (let component of components) {
-      component.id = this.generateId();
+      component.id = this.generateId(component.id);
       this._componentMap.set(component.id,component);
     }
   }
@@ -73,8 +78,22 @@ export default class Model {
 	}
 
 
-  generateId() {
-    return this._nextId++;
+	_generateUniqueId(){
+		let id = this._nextId++;
+		while(this._componentMap.get(id) != undefined){
+			id = this._nextId++;
+		}
+		return id;
+	}
+
+  generateId(desired){
+		if((desired == undefined) || (desired == null)){
+			return this._generateUniqueId();
+		}
+		if(this._componentMap.get(desired) == undefined){
+			return desired;
+		}
+    return this._generateUniqueId();
 	}
 
 	getDescendants(node){
@@ -106,7 +125,7 @@ export default class Model {
 	}
 
 	_addNodePart(node){
-		const id = this.generateId();
+		const id = this.generateId(node.id);
 		node.id = id;
 		node.model = this;
 		this._componentMap.set(id,node);
@@ -162,7 +181,7 @@ export default class Model {
 
 	@action
 	addComponent(component){
-		let id = this.generateId();
+		let id = this.generateId(component.id);
     component.id = id;
     component.model = this;
     this._componentMap.set(id,component);
@@ -235,14 +254,18 @@ export default class Model {
 	}
 
 	getEdges() {
-    return this.components.filter(component => (component instanceof Edge));
+    return this.relations.filter(component => (component instanceof Edge));
 	}
 
   getRelations(){
-    return this.components.filter(component => (component instanceof Relation));
+    return this.components.filter(component => (
+			(component instanceof Relation) &&
+			(component.source) &&
+			(component.target)
+		));
   }
 	getHierarchyRelations() {
-    return this.components.filter(component => (component instanceof HierarchyRelation));
+    return this.relations.filter(component => (component instanceof HierarchyRelation));
 	}
 
 	getComponent(id){

@@ -86,11 +86,11 @@ flow_f1_2_to_p1.target = p1;
 dvcm.model.addEdge(flow_f1_2_to_p1);
 
 const transaction = new Transaction();
-transaction.activities.push(p1);
-transaction.activities.push(f1);
-transaction.activities.push(f1_1);
-transaction.activities.push(f1_2);
 dvcm.model.addComponent(transaction);
+transaction.addActivity(p1);
+transaction.addActivity(f1);
+transaction.addActivity(f1_1);
+transaction.addActivity(f1_2);
 
 
 const app =(

@@ -38,7 +38,7 @@ export default class ComponentView extends React.Component{
 		if(this.component.model.root != this.component){
 			return views;
 		}
-		const edges = this.component.model.getEdges();
+		const edges = this.component.model.edges;
 		for(let edge of edges){
 			this.viewFactory.addViews(edge,views);
 		}

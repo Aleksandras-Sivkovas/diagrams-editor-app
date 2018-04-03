@@ -9,6 +9,7 @@ import Converter from "./Converter.js";
 
 export default class ModelConverter extends Converter {
 
+  idMap;
   getClassId(){
     return "modeling.Model";
   }
@@ -17,26 +18,24 @@ export default class ModelConverter extends Converter {
     return new Model();
   }
 
-  convertToModel(object){
-    const model = super.convertToModel(...arguments);
+  addComponents(object,model){
     model.name = object.name;
     const converter = this.getConverterByClassId(object.root.classId);
     const rootNode = converter.convertToModel(object.root);
     model.addAsRoot(rootNode);
 
-    const idMap = this._setNodeTree(object.root,model.root,new Map);
+    this.idMap = new Map();
+    this._setNodeTree(object.root,model.root);
+  }
 
+  convertToModel(object){
+    const model = super.convertToModel(...arguments);
+
+    this.addComponents(object,model);
+    
     for(let relation of object.relations){
       const converter = this.getConverterByClassId(relation.classId);
-      const fixedRelation = Object.assign(
-        {},
-        relation,
-        {
-          source: idMap.get(relation.source),
-          target: idMap.get(relation.target)
-        }
-      );
-      const relationModel = converter.convertToModel(fixedRelation,model);
+      const relationModel = converter.convertToModel(relation,model,this.idMap);
       model.addRelation(relationModel);
     }
 
@@ -86,16 +85,15 @@ export default class ModelConverter extends Converter {
 
 
 
-  _setNodeTree(object,model,idMap){
+  _setNodeTree(object,model){
     const children = object.children;
     for(let child of children){
       const converter = this.getConverterByClassId(child.classId);
       const childModel = converter.convertToModel(child);
       model.append(childModel);
-      idMap.set(child.id,childModel.id);
-      this._setNodeTree(child,childModel,idMap);
+      this.idMap.set(child.id,childModel.id);
+      this._setNodeTree(child,childModel);
     }
-    return idMap;
   }
   _getNodeTree(model,object){
     object.children = [];

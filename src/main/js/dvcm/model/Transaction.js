@@ -1,10 +1,24 @@
 import {observable, computed} from "mobx";
 import {Component,Point} from 'modeling';
+import InTransaction from "./InTransaction.js"
 
 export default class Transaction extends Component {
 
-  @observable
-  activities;
+  @computed
+  get activities(){
+    const activities = [];
+    for(let rel of this.inTransactions){
+      activities.push(rel.target);
+    }
+    return activities;
+  }
+
+  @computed
+  get inTransactions(){
+    return this.model.inTransactions.filter(rel =>
+        (rel.source == this)
+    );
+  }
 
 	@observable
 	name = "Transaction"
@@ -12,7 +26,6 @@ export default class Transaction extends Component {
 	constructor(name){
 		super(...arguments);
     this.name = name;
-    this.activities = [];
 	}
 
 
@@ -80,6 +93,9 @@ export default class Transaction extends Component {
   get processesPoints(){
     const processes = this.processes;
     const points = this._getSurroundingPoints(processes);
+    if(!points.botRight){
+      return [];
+    }
     return [
       points.botRight,
       points.botLeft,
@@ -92,6 +108,9 @@ export default class Transaction extends Component {
   get functionsPoints(){
     const functions = this.functions;
     const points = this._getSurroundingPoints(functions);
+    if(!points.topLeft){
+      return [];
+    }
     return [
       points.topLeft,
       points.topRight,
@@ -107,9 +126,21 @@ export default class Transaction extends Component {
     const processesPoints = this.processesPoints;
     points.push(...functionsPoints);
     points.push(...processesPoints);
-    // points.append(...this.functionsPoints);
-    // points.append(...this.processesPoints);
     return points;
+  }
+  addActivity(activity){
+    const inTransaction = new InTransaction();
+    inTransaction.source = this;
+    inTransaction.target = activity;
+    this.model.addRelation(inTransaction);
+  }
+
+  removeActivity(activity){
+    for(let rel of this.inTransactions){
+      if(rel.target == activity){
+        this.model.removeComponent(rel);
+      }
+    }
   }
 
 };

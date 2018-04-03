@@ -16,3 +16,5 @@ export {default as Pool} from "./model/Pool.js";
 export {default as Activity} from "./model/Activity.js";
 export {default as DVCM} from "./model/DVCM.js";
 export {default as Transaction} from "./model/Transaction.js";
+export {default as InTransaction} from "./model/InTransaction.js";
+export {default as DVCMModel} from "./model/DVCMModel.js";

@@ -2,6 +2,7 @@ import {observable,computed} from "mobx";
 import {Node} from 'modeling';
 import Activity from "./Activity";
 import Pool from './Pool.js';
+import DVCMModel from './DVCMModel.js';
 
 export default class DVCM extends Node {
 
@@ -15,6 +16,17 @@ export default class DVCM extends Node {
 		}
 		return 900;
 	}
+
+	@computed
+	get functionsPool(){
+		return this.children[1];
+	}
+
+	@computed
+	get processesPool(){
+		return this.children[0];
+	}
+
 	set rootPoolsHeight(height){
 		this._rootPoolsHeight = height;
 	}
@@ -35,18 +47,20 @@ export default class DVCM extends Node {
 		this._addFunctionsPool();
 	}
 
+	getModelClass(){
+		return DVCMModel;
+	}
+
 	_addFunctionsPool(){
 		const pool = new Pool();
 		pool.name = "Functions";
 		this.append(pool);
-		this.functionsPool = pool;
 	}
 
 	_addProcessPool(){
 		const pool = new Pool();
 		pool.name = "Processes";
 		this.append(pool);
-		this.processesPool = pool;
 	}
 
 };

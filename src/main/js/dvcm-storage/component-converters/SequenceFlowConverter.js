@@ -5,7 +5,7 @@ import {EdgeConverter} from "modeling-storage";
 export default class SequenceFlowConverter extends EdgeConverter {
 
   getClassId(){
-    return "modeling.SequenceFlow";
+    return "dvcm.SequenceFlow";
   }
 
   createModelInstance(){

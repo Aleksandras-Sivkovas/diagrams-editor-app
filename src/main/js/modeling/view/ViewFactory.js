@@ -119,6 +119,6 @@ export default class ViewFactory {
 			viewsList.push(<NodeView component={model} key={model.id} viewFactory={this}/>);
 			return;
 		}
-		console.warn("Unknown component (id='" +component.id+"')");
+		console.warn("Unknown component (id='" +model.id+"')");
 	}
 };

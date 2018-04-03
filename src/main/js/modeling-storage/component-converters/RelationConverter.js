@@ -1,8 +1,8 @@
 import {Relation} from "modeling";
 
-import Converter from "../Converter.js";
+import ComponentConverter from "./ComponentConverter.js";
 
-export default class RelationConverter extends Converter {
+export default class RelationConverter extends ComponentConverter {
 
   getClassId(){
     return "modeling.Relation";
@@ -12,10 +12,12 @@ export default class RelationConverter extends Converter {
     return new Relation();
   }
 
-  convertToModel(object,componentModel){
+  convertToModel(object,componentModel,idMap){
     const model = super.convertToModel(...arguments);
-    model.source = componentModel.getComponent(object.source);
-    model.target = componentModel.getComponent(object.target);
+    const sourceId = idMap.get(object.source);
+    const targetId = idMap.get(object.target);
+    model.source = componentModel.getComponent(sourceId);
+    model.target = componentModel.getComponent(targetId);
     return model;
   }
 
