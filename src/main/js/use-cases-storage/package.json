@@ -1,0 +1,9 @@
+{
+  "name": "use-cases-storage",
+  "version": "0.0.0",
+  "dependencies": {
+    "use-cases":"file:../use-cases",
+    "modeling-storage":"file:../modeling-storage"
+  },
+  "main": "index.js"
+}

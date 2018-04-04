@@ -10,3 +10,4 @@ export {default as SystemView} from "./view/SystemView.js";
 export {default as UseCaseView} from "./view/UseCaseView.js";
 export {default as UseCasesView} from "./view/UseCasesView.js";
 export {default as UseCasesViewFactory} from "./view/UseCasesViewFactory.js";
+export {Model as UseCasesModel} from "modeling";

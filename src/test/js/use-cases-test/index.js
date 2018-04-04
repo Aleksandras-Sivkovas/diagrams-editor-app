@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import {Actor,Association,System,UseCase,
     UseCases,UseCasesViewFactory,UseCasesView} from  "use-cases"
 
-// import {UseCasestorage} from "use-cases-storage";
+import {UseCasesStorage} from "use-cases-storage";
 import {localStorage} from "modeling-storage-local";
 
 import 'use-cases-test-style';
@@ -35,7 +35,7 @@ system.append(t1);
 
 const t2 = new UseCase("transaction2");
 t2.position.x = 20;
-t2.position.y = 20;
+t2.position.y = 200;
 system.append(t2);
 
 const association_actor1_to_t1 = new Association();
@@ -60,21 +60,21 @@ const app =(
 );
 render(app,document.getElementById('app'));
 
-// @localStorage
-// class LocalStorage extends UseCasestorage{
-//
-// }
-// const storage = new LocalStorage();
-// window.model = dvcm.model;
-// storage.onLoad = function(response){
-//   // console.log(response.response.responseText);
-//   const dvcm = response.model.root;
-//   window.model = dvcm.model;
-//   const app =(
-//     <div>
-//       <DVCMView component={dvcm} viewFactory={viewFactory} class="diagram" />
-//     </div>
-//   );
-//   render(app,document.getElementById('app'));
-// }
-// window.storage = storage;
+@localStorage
+class LocalStorage extends UseCasesStorage{
+
+}
+const storage = new LocalStorage();
+window.model = useCases.model;
+storage.onLoad = function(response){
+  // console.log(response.response.responseText);
+  const useCases = response.model.root;
+  window.model = useCases.model;
+  const app =(
+    <div>
+      <UseCasesView component={useCases} viewFactory={viewFactory} class="diagram" />
+    </div>
+  );
+  render(app,document.getElementById('app'));
+}
+window.storage = storage;
