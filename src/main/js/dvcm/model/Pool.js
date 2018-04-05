@@ -8,7 +8,7 @@ export default class Pool extends Column {
 
 	@computed
 	get fitInParent(){
-		if(this.parent.rootPoolsHeight){
+		if(this.parent == this.model.root){
 			return false;
 		}
 		return true;
@@ -30,19 +30,11 @@ export default class Pool extends Column {
 
 	@computed
 	get height(){
-		if(this.parent.rootPoolsHeight){
-			return this.parent.rootPoolsHeight;
-		}
 		return this.parent.contentHeight;
 	}
 
 	set height(height){
-		if(!this.parent){
-			return;
-		}
-		if(this.parent.rootPoolsHeight){
-			this.parent.rootPoolsHeight = height;
-		}
+
 	}
 
 };

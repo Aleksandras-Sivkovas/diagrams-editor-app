@@ -46,13 +46,13 @@ switch(process.env.moduleView) {
         break;
     default:{
       values = {
-        INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
+        INDEX_HTML : path.join(__dirname, 'src/main/html/index.html')
       };
       config = {
-        entry : path.join(__dirname, 'src/test/js/modeling-test/index.js'),
+        entry : path.join(__dirname, 'src/main/js/index.js'),
         output: {
-          path: path.resolve(__dirname, 'dist/modeling-test'),
-          filename: 'modeling-test.js',
+          path: path.resolve(__dirname, 'dist/diagrams-editor-app'),
+          filename: 'diagrams-editor-app.js',
         },
 
       };

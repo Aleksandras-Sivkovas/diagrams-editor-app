@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import {DVCMView,DVCM,DVCMViewFactory,Activity,Pool,SequenceFlow, StartEvent,
+import {DVCMView,DVCM,Activity,Pool,SequenceFlow, StartEvent,
   EndEvent,Transaction} from "dvcm";
 
 import {DVCMStorage} from "dvcm-storage";
@@ -12,7 +12,6 @@ import 'dvcm-test-style';
 const dvcm = new DVCM();
 dvcm.processesPool.width = 150;
 dvcm.functionsPool.width = 600;
-const viewFactory = new DVCMViewFactory();
 
 const d1 = new Pool("Department1");
 d1.width = 200;
@@ -92,10 +91,9 @@ transaction.addActivity(f1);
 transaction.addActivity(f1_1);
 transaction.addActivity(f1_2);
 
-
 const app =(
-  <div>
-    <DVCMView component={dvcm} viewFactory={viewFactory} class="diagram" />
+  <div class="diagram" >
+    <DVCMView component={dvcm}/>
   </div>
 );
 render(app,document.getElementById('app'));
@@ -111,8 +109,8 @@ storage.onLoad = function(response){
   const dvcm = response.model.root;
   window.model = dvcm.model;
   const app =(
-    <div>
-      <DVCMView component={dvcm} viewFactory={viewFactory} class="diagram" />
+    <div class="diagram">
+      <DVCMView component={dvcm} />
     </div>
   );
   render(app,document.getElementById('app'));

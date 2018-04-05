@@ -1,0 +1,8 @@
+{
+  "name": "diagrams-editor-style",
+  "version": "0.0.0",
+  "main":"index.css",
+  "dependencies": {
+    "dvcm-style": "file:../diagrams-editor-style"
+  }
+}

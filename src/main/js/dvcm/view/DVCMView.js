@@ -1,18 +1,22 @@
 
 import React from 'react';
-import {NodeView, select} from 'modeling';
+import {NodeView, select,resize} from 'modeling';
 import Transaction from "../model/Transaction.js";
+import DVCMViewFactory from "./DVCMViewFactory.js";
 
+@resize({right:true,bottom:true,rightBottom:true})
 @select
 export default class DVCMView extends NodeView {
 
+	getdefaultViewFactory(){
+		return new DVCMViewFactory();
+	}
 	getStyleClass(){
     return super.getStyleClass() + " dvcm";
   }
 
 	getCss() {
 		const css = super.getCss();
-		css.borderWidth = '1px';
 		return css;
 	}
 	getChildrenViews(){

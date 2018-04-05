@@ -1,6 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react";
-
+import ViewFactory from "./ViewFactory.js";
 @observer
 export default class ComponentView extends React.Component{
 
@@ -48,8 +48,14 @@ export default class ComponentView extends React.Component{
 		return this.getChildrenViews();
 	}
 
+	getdefaultViewFactory(){
+		return new ViewFactory();
+	}
 	initialize(props){
 		this.viewFactory = props.viewFactory;
+		if(!this.viewFactory){
+			this.viewFactory = this.getdefaultViewFactory();
+		}
 		this.component = props.component;
 	}
 

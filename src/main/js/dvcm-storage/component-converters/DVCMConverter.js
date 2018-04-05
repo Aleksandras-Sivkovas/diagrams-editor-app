@@ -12,15 +12,5 @@ export default class DVCMConverter extends NodeConverter {
     return new DVCM();
   }
 
-  convertToModel(object){
-    const model = super.convertToModel(...arguments);
-    model.rootPoolsHeight = object.rootPoolsHeight;
-    return model;
-  }
 
-  convertToObject(model){
-    const object = super.convertToObject(...arguments);
-    object.rootPoolsHeight = model.rootPoolsHeight;
-    return object;
-  }
 };

@@ -62,6 +62,25 @@ export default class Column extends Node {
 		return width;
 	}
 
+	isResizable(){
+		const parent = this.parent;
+		if(!parent){
+			return true;
+		}
+		const columns = parent.children
+				.filter(sibling => (sibling instanceof Column));
+
+		const last = columns[columns.length-1];
+		if(last == this){
+			return false;
+		}
+		return true;
+	}
+
+	@computed
+	get resizable(){
+		return this.isResizable();
+	}
 
 	@computed
 	get height(){

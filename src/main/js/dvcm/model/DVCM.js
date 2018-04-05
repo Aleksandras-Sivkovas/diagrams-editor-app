@@ -6,15 +6,10 @@ import DVCMModel from './DVCMModel.js';
 
 export default class DVCM extends Node {
 
-	@observable
-  _rootPoolsHeight = null;
-
-	@computed
-	get rootPoolsHeight(){
-		if(this._rootPoolsHeight){
-			return this._rootPoolsHeight;
-		}
-		return 900;
+	constructor(){
+		super();
+		this.width = 900;
+		this.height = 900;
 	}
 
 	@computed
@@ -27,9 +22,6 @@ export default class DVCM extends Node {
 		return this.children[0];
 	}
 
-	set rootPoolsHeight(height){
-		this._rootPoolsHeight = height;
-	}
 
 	@computed
 	get activities(){

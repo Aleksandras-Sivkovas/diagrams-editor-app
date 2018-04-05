@@ -32,7 +32,7 @@ export default class ModelConverter extends Converter {
     const model = super.convertToModel(...arguments);
 
     this.addComponents(object,model);
-    
+
     for(let relation of object.relations){
       const converter = this.getConverterByClassId(relation.classId);
       const relationModel = converter.convertToModel(relation,model,this.idMap);

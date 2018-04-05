@@ -13,7 +13,11 @@
 .diagram .selected>.resize-point-right{
   display:block;
 }
-
+.diagram .selected.no-resize>.resize-point-right-bottom,
+.diagram .selected.no-resize>.resize-point-bottom,
+.diagram .selected.no-resize>.resize-point-right{
+  display:none;
+}
 .diagram .selected>.resize-point-right-bottom{
   border-width: 5px;
   width:20px;

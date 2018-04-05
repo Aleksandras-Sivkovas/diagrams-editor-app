@@ -1,0 +1,12 @@
+.diagrams-editor>.controlls{
+  background-color:#4455BB;
+}
+
+
+.diagrams-editor>.controlls>.button{
+  display:inline-block;
+  width:100px;
+  height:100%;
+  color:#FFFFFF;
+  cursor:pointer;
+}

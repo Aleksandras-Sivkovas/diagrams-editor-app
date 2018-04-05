@@ -4,3 +4,7 @@
 @import "activity.css";
 @import "event.css";
 @import "transaction.css";
+
+.diagram .dvcm{
+  background-color:#FFFFFF;
+}

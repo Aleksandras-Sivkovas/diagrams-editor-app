@@ -4,7 +4,7 @@ import {observer} from "mobx-react";
 import {ColumnView, select,resize} from 'modeling';
 import DVCM from '../model/DVCM.js';
 
-@resize
+@resize({right:true})
 @select
 @observer
 export default class PoolView extends ColumnView {
@@ -31,11 +31,7 @@ export default class PoolView extends ColumnView {
 	}
 	getCss() {
 		const css = super.getCss();
-		if(this.component.parent.rootPoolsHeight){
-			css.borderBottom = 'solid';
-		}else{
-			css.height = '100%';
-		}
+		css.height = '100%';
 		return css;
 	}
 
@@ -43,10 +39,4 @@ export default class PoolView extends ColumnView {
 		return super.getStyleClass() + " pool";
 	}
 
-	getResizeProperties(){
-		if(this.component.parent.rootPoolsHeight){
-			return {right:true,bottom:true,rightBottom:true};
-		}
-		return {right:true};
-	}
 };

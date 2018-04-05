@@ -39,9 +39,15 @@ export default class Storage {
   }
 
   store(model){
+    // TODO: workaround for adding border width
+    const selected = model.selected;
+    model.selected = null;
+
     const storeObject = this._convertModelToStoreObject(model);
     const fileContent = this._convertStoreObjectToString(storeObject);
     this.saveToStore(fileContent,storeObject.name);
+
+    model.selected = selected;
   }
 
   load(){

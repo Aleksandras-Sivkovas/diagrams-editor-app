@@ -31,6 +31,6 @@
 	border-bottom: 8px solid transparent;
 	border-left: 10px solid #000000;
 }
-.diagram .selected .edge-end-right{
+.diagram .selected.edge .edge-end-right{
   display:none;
 }
