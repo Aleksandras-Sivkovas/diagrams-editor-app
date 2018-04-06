@@ -1,12 +1,14 @@
 import {ModelConverter} from "modeling-storage";
 import {UseCasesModel,Actor,Association,System,UseCase
-    ,UseCases} from "use-cases";
+    ,UseCases,Inclusion,Extension} from "use-cases";
 
 import ActorConverter from "./component-converters/ActorConverter.js";
 import AssociationConverter from "./component-converters/AssociationConverter.js";
 import SystemConverter from "./component-converters/SystemConverter.js";
 import UseCaseConverter from "./component-converters/UseCaseConverter.js";
 import UseCasesConverter from "./component-converters/UseCasesConverter.js";
+import InclusionConverter from "./component-converters/InclusionConverter.js";
+import ExtensionConverter from "./component-converters/ExtensionConverter.js";
 
 
 
@@ -42,6 +44,14 @@ export default class UseCasesModelConverter extends ModelConverter {
     this.registerClass({
       classInstance : UseCases,
       converter : new UseCasesConverter()
+    });
+    this.registerClass({
+      classInstance : Inclusion,
+      converter : new InclusionConverter()
+    });
+    this.registerClass({
+      classInstance : Extension,
+      converter : new ExtensionConverter()
     });
   }
 

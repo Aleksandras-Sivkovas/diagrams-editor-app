@@ -34,3 +34,10 @@
 .diagram .selected.edge .edge-end-right{
   display:none;
 }
+
+.diagram .edge>.title{
+  position:absolute;
+  bottom:10px;
+  width:100%;
+  text-align:center;
+}
