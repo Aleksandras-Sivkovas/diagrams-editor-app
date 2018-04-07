@@ -1,8 +1,6 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import {localizable} from "localizable";
-import {DVCM} from "dvcm";
-import {UseCases} from "use-cases";
 import controllTypes from "./controllTypes.js";
 
 @localizable({
@@ -11,23 +9,15 @@ import controllTypes from "./controllTypes.js";
 })
 @observer
 export default class DiagramChooser extends React.Component{
-	setControllsToMain(){
-		this.model.controlls = controllTypes.MAIN;
-	}
 
-  // @action
   handleBPMNClicked(){
-    const dvcm = new DVCM();
-    this.model.diagram = dvcm.model;
-    this.setControllsToMain();
+    this.model.dvcmChosen();
 	}
 
-  // @action
   handleUseCasesClicked(){
-    const useCases = new UseCases();
-    this.model.diagram = useCases.model;
-    this.setControllsToMain();
+    this.model.useCasesChosen();
 	}
+
 	render() {
     this.model = this.props.model;
 		return [

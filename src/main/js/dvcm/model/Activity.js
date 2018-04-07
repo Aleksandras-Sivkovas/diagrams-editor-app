@@ -12,4 +12,14 @@ export default class Activity extends Node {
 		this.width = 80;
 		this.height = 80;
 	}
+
+	@computed
+	get isFunction(){
+		return this.parents.includes(this.model.root.functionsPool);
+	}
+
+	@computed
+	get isProcess(){
+		return this.parents.includes(this.model.root.processesPool);
+	}
 };

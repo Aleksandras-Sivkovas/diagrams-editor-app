@@ -10,7 +10,7 @@ import {NodeView, move, select,resize} from 'modeling';
 export default class ActivityView extends NodeView {
 
 	getContent() {
-		return [<p key="name">{this.component.name}</p>];
+		return [<p key="name">{this.component.name + " " + this.component.id}</p>];
 
 	}
 	getStyleClass(){

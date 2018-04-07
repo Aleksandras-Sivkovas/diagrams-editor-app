@@ -3,6 +3,7 @@ import {observer} from "mobx-react";
 import DiagramsEditorModel from "./DiagramsEditorModel.js";
 import Main from "./controlls/Main.js";
 import DiagramChooser from "./controlls/DiagramChooser.js";
+import CreationChooser from "./controlls/CreationChooser.js";
 import controllTypes from "./controlls/controllTypes.js";
 import {DVCMView,DVCM} from "dvcm";
 import {UseCasesView,UseCases} from "use-cases";
@@ -29,6 +30,9 @@ export default class DiagramsEditor extends React.Component{
     switch(this._editorModel.controlls){
       case controllTypes.NEW :{
         return <DiagramChooser model={this._editorModel}/>
+      }
+      case controllTypes.NEW_USE_CASES :{
+        return <CreationChooser model={this._editorModel}/>
       }
       break;
     }

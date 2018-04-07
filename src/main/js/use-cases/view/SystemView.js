@@ -6,7 +6,7 @@ import {NodeView, move, select,resize} from 'modeling';
 @move
 @select
 @observer
-@resize
+@resize({right:true,bottom:true,rightBottom:true})
 export default class SystemView extends NodeView {
 	getContent() {
 		return [<div class="name" key="name">{this.component.name}</div>,...this.getChildrenViews()]

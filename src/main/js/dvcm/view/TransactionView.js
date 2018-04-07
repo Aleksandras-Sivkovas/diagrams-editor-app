@@ -29,6 +29,27 @@ export default class TransactionView extends ComponentView {
       );
       previous = point;
     }
+
+    if(points.length > 1){
+      const p1 = points[points.length-1];
+      const p2 = points[0];
+      const x = Math.min(p1.x,p2.x);
+      const y = Math.min(p1.y,p2.y);
+      const width = Math.max(p1.x,p2.x) - x;
+      const css = {
+        position: "absolute",
+        top:y+"px",
+        left:x+'px',
+        width:width+"px",
+        textAlign:'center'
+      };
+      children.push(
+        <div style={css} key="transaction-name">
+          {this.component.name}
+        </div>
+      );
+
+    }
 		return children;
 	}
 };

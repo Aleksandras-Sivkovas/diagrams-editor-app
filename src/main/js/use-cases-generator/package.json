@@ -1,0 +1,7 @@
+{
+  "name": "use-cases-generator",
+  "version": "0.0.0",
+  "dependencies": {
+  },
+  "main": "index.js"
+}
