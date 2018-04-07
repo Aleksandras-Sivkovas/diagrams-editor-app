@@ -23,7 +23,10 @@ export default class UseCasesGenerator {
       if(process == null){
         continue;
       }
-  		const flowUsecases = this._getUseCasesForProcess(process,sequenceFlows);
+      const transactionSequenceFlows = this.
+          _getTransactionSequenceFlows(transaction,sequenceFlows);
+  		const flowUsecases = this.
+          _getUseCasesForProcess(process,transactionSequenceFlows);
   		this._addNewUsecases(edges,useCases,flowUsecases,transaction);
   	}
 
@@ -35,6 +38,13 @@ export default class UseCasesGenerator {
 
 
   	return this._createUseCaseDiagramModel(dvcm.name,useCases,edges);
+  }
+
+  _getTransactionSequenceFlows(transaction,sequenceFlows){
+    const activities = transaction.activities;
+    return sequenceFlows.filter(flow => (
+      (activities.includes(flow.source)) && (activities.includes(flow.target))
+    ));
   }
 
   _getUseCasesForProcess(process,sequenceFlows){
@@ -187,7 +197,11 @@ export default class UseCasesGenerator {
   		return;
   	}
   	if(newUseCases.length == 1){
-  		useCases.push(newUseCases[0]);
+      const useCase = newUseCases[0];
+      const mainUseCase = this._createUseCase(transaction);
+      mainUseCase.createdFromFlow = useCase.createdFromFlow;
+      mainUseCase.usedBy = useCase.usedBy;
+  		useCases.push(mainUseCase);
   		return;
   	}
   	const mainUseCase = this._createUseCase(transaction);
@@ -208,6 +222,7 @@ export default class UseCasesGenerator {
   			continue;
   		}
   		const generalUseCase = this._createGeneraluseCase(f);
+      generalUseCase.usedBy = [];
   		useCases.push(generalUseCase);
   		for(let useCase of useCasesUsingThisFunction){
   			const edge = this._createExtendEdge(generalUseCase,useCase);
@@ -289,7 +304,7 @@ export default class UseCasesGenerator {
 
     const x1 = 10;
     let y1 = 10;
-    const x2 = 300;
+    const x2 = 400;
     let y2 = 100;
     for(let useCase of useCases){
       if(this._isFirstLevelCase(useCase.useCase,edges)){
@@ -318,7 +333,7 @@ export default class UseCasesGenerator {
       }
     }
     system.height = Math.max(y1,y2);
-    system.width = 500;
+    system.width = 600;
 
     useCasesComponent.height = system.height + 100;
 

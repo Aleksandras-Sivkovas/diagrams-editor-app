@@ -7,7 +7,11 @@ import CreationChooser from "./controlls/CreationChooser.js";
 import controllTypes from "./controlls/controllTypes.js";
 import {DVCMView,DVCM} from "dvcm";
 import {UseCasesView,UseCases} from "use-cases";
+import {localizable} from "localizable";
 
+@localizable({
+	diagramsEditor : "Diagrams editor"
+})
 @observer
 export default class DiagramsEditor extends React.Component{
   constructor(){
@@ -39,6 +43,7 @@ export default class DiagramsEditor extends React.Component{
     return <Main model={this._editorModel}/>;
   }
 	render() {
+    document.title = this.locale.diagramsEditor;
 		return (
       <div class="diagrams-editor">
   			<div class="controlls">

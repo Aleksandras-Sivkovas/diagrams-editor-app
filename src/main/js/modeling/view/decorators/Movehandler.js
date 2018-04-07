@@ -67,6 +67,10 @@ export default class Movehandler {
     let top = this.moveY ? currentPosition.y + deltaTop : currentPosition.y;
     let left = this.moveX ? currentPosition.x + deltaLeft : currentPosition.x;
 
+    // TODO: add parameters or something like that for this
+    if(top < 0 ) top = 0;
+    if(left < 0) left = 0;
+
     this.setCurrentPosition(left,top);
 
     const newPosition = this.getCurrentPosition();
