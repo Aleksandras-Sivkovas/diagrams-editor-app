@@ -3,6 +3,7 @@
 @import "actor.css";
 @import "use-case.css";
 @import "system.css";
+@import "edges.css";
 
 .modeling-component.use-cases{
   background-color:#FFFFFF;
