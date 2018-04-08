@@ -5,15 +5,15 @@
 
 .dvcm  .modeling-component.transaction .transaction-border{
   overflow:visible;
-  border-top-style: dashed;
+  border-top-style: double;
   border-top-color: black;
-  border-top-width: 1px;
+  border-top-width: 6px;
   border-bottom: none;
   border-left: none;
   border-right:none;
   z-index:100;
-  border-radius:50%;
-  height:10px
+  /*border-radius:50%;*/
+  /*height:10px;*/
 }
 
 .dvcm  .modeling-component.transaction.selected .transaction-border{

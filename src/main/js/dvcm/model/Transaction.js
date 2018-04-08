@@ -55,9 +55,9 @@ export default class Transaction extends Component {
         maxY = y2;
       }
     }
-    const padding = 10;
-    minX -= padding*2;
-    minY -= padding*2;
+    const padding = 20;
+    minX -= padding;
+    minY -= padding;
     maxX += padding;
     maxY += padding;
     return {

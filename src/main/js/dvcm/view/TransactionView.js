@@ -30,18 +30,19 @@ export default class TransactionView extends ComponentView {
       previous = point;
     }
 
-    if(points.length > 1){
-      const p1 = points[points.length-1];
-      const p2 = points[0];
-      const x = Math.min(p1.x,p2.x);
-      const y = Math.min(p1.y,p2.y);
-      const width = Math.max(p1.x,p2.x) - x;
+    const functionsRectangle = this.component.functionsPoints;
+    if(functionsRectangle.length == 4){
+      const p1 = points[1];
+      const p2 = points[2];
+      const x = p1.x;
+      const width = p2.y - p1.y;
+      const y = Math.floor(width/2) + p1.y;
       const css = {
         position: "absolute",
         top:y+"px",
         left:x+'px',
-        width:width+"px",
-        textAlign:'center'
+        paddingLeft:'10px',
+        textAlign:'center',
       };
       children.push(
         <div style={css} key="transaction-name">
