@@ -27,16 +27,22 @@ export default class Main extends React.Component{
     this.model = this.props.model;
 		return [
       <div class="button" onClick={this.handleNewClicked.bind(this)} key="new">
-      	{this.locale.new}
+				<div class="text">
+      		{this.locale.new}
+				</div>
       </div>,
       <div class="button"
 					onClick={this.handleImport.bind(this)}
 					key="import">
-      	{this.locale.import}
+				<div class="text">
+      		{this.locale.import}
+				</div>
       </div>,
       <div class="button" key="export"
 					onClick={this.handleExport.bind(this)}>
-      	{this.locale.export}
+				<div class="text">
+      		{this.locale.export}
+				</div>
       </div>
 		];
 	}

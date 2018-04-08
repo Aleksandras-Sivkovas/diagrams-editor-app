@@ -26,14 +26,18 @@ export default class DiagramChooser extends React.Component{
           onClick={this.handleBPMNClicked.bind(this)}
           key="bpmn"
       >
-        {this.locale.bpmn}
+				<div class="text">
+        	{this.locale.bpmn}
+				</div>
       </div>,
       <div
           class="button"
           onClick={this.handleUseCasesClicked.bind(this)}
           key="use-cases"
       >
-        {this.locale.useCases}
+				<div class="text">
+        	{this.locale.useCases}
+				</div>
       </div>
 		];
 	}

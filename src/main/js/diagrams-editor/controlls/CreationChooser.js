@@ -24,14 +24,18 @@ export default class CreationChooser extends React.Component{
           onClick={this.handleNewClicked.bind(this)}
           key="new"
       >
-        {this.locale.newDiagram}
+				<div class="text">
+        	{this.locale.newDiagram}
+				</div>
       </div>,
       <div
           class="button"
           onClick={this.handleGenerateClicked.bind(this)}
           key="generate"
       >
-        {this.locale.generateFromUseCases}
+				<div class="text">
+        	{this.locale.generateFromUseCases}
+				</div>
       </div>
 		];
 	}
