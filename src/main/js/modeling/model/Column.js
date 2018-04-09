@@ -63,6 +63,9 @@ export default class Column extends Node {
 	}
 
 	isResizable(){
+		if(!this.fitInParent){
+			return true;
+		}
 		const parent = this.parent;
 		if(!parent){
 			return true;
