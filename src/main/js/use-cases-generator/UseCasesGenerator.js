@@ -161,9 +161,9 @@ export default class UseCasesGenerator {
   	if(newFlow.target == process){
   		return true;
   	}
-  	if(!newFlow.target.isFunction){
-  		return false;
-  	}
+  	// if(!newFlow.target.isFunction){
+  	// 	return false;
+  	// }
   	if(currentPath.includes(newFlow)){
   		return false;
   	}
@@ -180,7 +180,7 @@ export default class UseCasesGenerator {
   	for(let flow of nextFlows){
   		if(this._addCycledFlows(cycledFlows,currentPath,flow,process,sequenceFlows)){
   			pathFound = true;
-        break;
+        // No brake because we need to recursivelly add all paths
   		}
   	}
   	if(!pathFound){
@@ -196,16 +196,14 @@ export default class UseCasesGenerator {
     if(newUseCases.length < 1){
   		return;
   	}
+    const mainUseCase = this._createUseCase(transaction);
+    useCases.push(mainUseCase);
   	if(newUseCases.length == 1){
       const useCase = newUseCases[0];
-      const mainUseCase = this._createUseCase(transaction);
       mainUseCase.createdFromFlow = useCase.createdFromFlow;
       mainUseCase.usedBy = useCase.usedBy;
-  		useCases.push(mainUseCase);
   		return;
   	}
-  	const mainUseCase = this._createUseCase(transaction);
-  	useCases.push(mainUseCase);
   	for(let useCase of newUseCases){
   		useCases.push(useCase);
   		const edge = this._createIncludeEdge(mainUseCase,useCase);
@@ -232,13 +230,13 @@ export default class UseCasesGenerator {
   }
 
   _addUnusedCases(useCases,functions){
+    const createdFromFunction = function(useCase) {
+      return (useCase.createdFromFlow.target == this);
+    }
     for(let f of functions){
-  		const useCasesUsingThisFunction = useCases.filter(
-        useCase => (useCase.createdFromFlow.target == f)
-      );
-  		if(useCasesUsingThisFunction.length > 0){
-  			continue;
-  		}
+      if(useCases.some(createdFromFunction,f)){
+        continue;
+      }
   		const useCase = this._createUnusedUsecase(f);
   		useCases.push(useCase);
   	}
