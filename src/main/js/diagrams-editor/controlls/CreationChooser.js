@@ -5,7 +5,7 @@ import controllTypes from "./controllTypes.js";
 
 @localizable({
 	newDiagram : "New diagram",
-	generateFromUseCases : "Generate from use cases"
+	generateFromDVCM : "Generate from DVCM"
 })
 @observer
 export default class CreationChooser extends React.Component{
@@ -34,7 +34,7 @@ export default class CreationChooser extends React.Component{
           key="generate"
       >
 				<div class="text">
-        	{this.locale.generateFromUseCases}
+        	{this.locale.generateFromDVCM}
 				</div>
       </div>
 		];
