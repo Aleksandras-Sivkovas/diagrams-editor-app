@@ -2,12 +2,12 @@ import React from 'react';
 import {observer} from "mobx-react";
 import DiagramsEditorModel from "./DiagramsEditorModel.js";
 import Main from "./controlls/Main.js";
-import DiagramChooser from "./controlls/DiagramChooser.js";
-import CreationChooser from "./controlls/CreationChooser.js";
-import controllTypes from "./controlls/controllTypes.js";
+import DiagramChooser from "./content/NewDiagram.js";
+import NewUseCases from "./content/NewUseCases.js";
 import {DVCMView,DVCM} from "dvcm";
 import {UseCasesView,UseCases} from "use-cases";
 import {localizable} from "localizable";
+import Welcome from "./content/Welcome.js";
 
 @localizable({
 	diagramsEditor : "Diagrams editor"
@@ -30,27 +30,39 @@ export default class DiagramsEditor extends React.Component{
     }
     return null;
   }
-  _getControlls(){
-    switch(this._editorModel.controlls){
-      case controllTypes.NEW :{
-        return <DiagramChooser model={this._editorModel}/>
-      }
-      case controllTypes.NEW_USE_CASES :{
-        return <CreationChooser model={this._editorModel}/>
-      }
-      break;
-    }
-    return <Main model={this._editorModel}/>;
-  }
+	_getContent(){
+		if(this._editorModel.pageDiagram){
+			return (
+				<div class="diagram">
+					{this._getDiagram()}
+				</div>
+			);
+		}
+		if(this._editorModel.pageNewDiagram){
+			return (
+				<div class="buttons">
+					<DiagramChooser model={this._editorModel} />
+				</div>
+			);
+		}
+		if(this._editorModel.pageNewUseCases){
+			return (
+				<div class="buttons">
+					<NewUseCases model={this._editorModel} />
+				</div>
+			);
+		}
+    return <Welcome/>;
+	}
 	render() {
     document.title = this.locale.diagramsEditor;
 		return (
       <div class="diagrams-editor">
   			<div class="controlls">
-          {this._getControlls()}
+          <Main model={this._editorModel}/>
         </div>
-        <div class="diagram">
-          {this._getDiagram()}
+        <div class="content">
+          {this._getContent()}
         </div>
       </div>
 		);

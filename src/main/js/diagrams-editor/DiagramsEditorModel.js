@@ -1,44 +1,64 @@
-import {observable,action} from "mobx";
+import {observable,action,computed} from "mobx";
 import {DVCM} from "dvcm";
 import {UseCases} from "use-cases";
-import controllTypes from "./controlls/controllTypes.js";
 import DiagramsLocalStorage from "./DiagramsLocalStorage.js";
 import {UseCasesGenerator} from "use-cases-generator"
 
+const paths = {
+		DIAGRAM: "/diagram",
+		NEW_DIAGRAM: "/new",
+		NEW_USE_CASES: "/new/use-cases"
+};
+
 export default class DiagramsEditorModel{
+
 	@observable
 	diagram;
 
 	@observable
-	controlls;
+	_navigation
 
 	constructor(){
 		this._createStorage();
 	}
 
+	@computed
+	get pageDiagram(){
+		return (this._navigation == paths.DIAGRAM);
+	}
+	@computed
+	get pageNewDiagram(){
+		return (this._navigation == paths.NEW_DIAGRAM);
+	}
+	@computed
+	get pageNewUseCases(){
+		return (this._navigation == paths.NEW_USE_CASES);
+	}
+
+	@computed
+	get isModelInContext(){
+		return (this.pageDiagram && this.diagram);
+	}
+
 	@action
 	_onStorageLoad(response){
 		this.diagram = response.model;
-		this._loadMain();
+		this._navigateToDiagram();
 	}
 
 	@action
 	_onStorageSaved(){
-		this._loadMain();
+		this._navigateToDiagram();
 	}
 
-	_loadMain(){
-		this.controlls = controllTypes.MAIN;
+	_navigateToDiagram(){
+		this._navigation = paths.DIAGRAM;
 	}
 
 	_createStorage(){
 		this._storage = new DiagramsLocalStorage();
 	}
 
-	@action
-	newDiagram(){
-		this.controlls = controllTypes.NEW;
-	}
 
 	@action
 	import(){
@@ -59,7 +79,7 @@ export default class DiagramsEditorModel{
 	_generateUseCasesFromDvcmModel(response){
 		const generator = new UseCasesGenerator();
 		this.diagram = generator.generate(response.model);
-		this._loadMain();
+		this._navigateToDiagram();
 	}
 	@action
 	_generateUseCasesFromDvcmFile(){
@@ -68,38 +88,33 @@ export default class DiagramsEditorModel{
 	}
 
 	@action
-	dvcmChosen(){
+	navigateToNewDiagram(){
+		this._navigation = paths.NEW_DIAGRAM;
+	}
+
+	@action
+	navigateToNewDvcm(){
 		const dvcm = new DVCM();
     this.diagram = dvcm.model;
-		this._loadMain();
+		this._navigateToDiagram();
 	}
 
 	@action
-	useCasesChosen(){
-		this.controlls = controllTypes.NEW_USE_CASES;
+	navigateToNewUseCases(){
+		const useCases = new UseCases();
+    this.diagram = useCases.model;
+		this._navigateToDiagram();
 	}
 
 	@action
-	createNewChosen(){
-		switch(this.controlls){
-			case controllTypes.NEW_USE_CASES:{
-				const useCases = new UseCases();
-		    this.diagram = useCases.model;
-			}
-			break;
-		}
-		this._loadMain();
+	navigateToNewUeCases(){
+		this._navigation = paths.NEW_USE_CASES;
 	}
 
 	@action
-	generateChosen(){
-		switch(this.controlls){
-			case controllTypes.NEW_USE_CASES:{
-				this._generateUseCasesFromDvcmFile();
-			}
-			break;
-		}
-		this._loadMain();
+	navigateToGenerateUseCases(){
+		this._generateUseCasesFromDvcmFile();
+		this._navigateToDiagram();
 	}
 
 };

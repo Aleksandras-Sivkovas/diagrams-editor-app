@@ -1,0 +1,24 @@
+.diagrams-editor>.content>.buttons{
+  padding-top:10%;
+  width:100%;
+  height:100%;
+  text-align:center;
+}
+.diagrams-editor>.content>.buttons>.button{
+  font-size: 20px;
+  display:inline-block;
+  float:bottom;
+  width:90%;
+  cursor:pointer;
+  margin-bottom:20px;
+  border-radius:8px;
+  border:solid #000 1px;
+  padding:1em;
+}
+
+.diagrams-editor>.content>.buttons>.button:hover{
+  background-color:#EEE;
+}
+.diagrams-editor>.content>.buttons>.button:active{
+  background-color:#DDD;
+}

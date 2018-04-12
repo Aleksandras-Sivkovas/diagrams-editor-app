@@ -1,6 +1,7 @@
 @import "~dvcm-style";
 @import "~use-cases-style";
 @import "controlls.css";
+@import "content.css";
 
 .diagrams-editor{
   height:100%;
@@ -13,9 +14,16 @@
   overflow:hidden;
 }
 
-.diagrams-editor>.diagram{
+.diagrams-editor>.content{
   height:90%;
   font-size:16px;
+  border:none;
+  overflow: hidden;
+}
+
+.diagrams-editor>.content>.diagram{
+  height:100%;
+  width:100%;
   border:none;
   overflow: auto;
   background-color:#CCCCCC;

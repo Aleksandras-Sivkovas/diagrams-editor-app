@@ -1,21 +1,20 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import {localizable} from "localizable";
-import controllTypes from "./controllTypes.js";
 
 @localizable({
 	bpmn : "BPMN",
 	useCases : "Use cases"
 })
 @observer
-export default class DiagramChooser extends React.Component{
+export default class NewDiagram extends React.Component{
 
   handleBPMNClicked(){
-    this.model.dvcmChosen();
+    this.model.navigateToNewDvcm();
 	}
 
   handleUseCasesClicked(){
-    this.model.useCasesChosen();
+    this.model.navigateToNewUeCases();
 	}
 
 	render() {

@@ -1,20 +1,19 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import {localizable} from "localizable";
-import controllTypes from "./controllTypes.js";
 
 @localizable({
 	newDiagram : "New diagram",
 	generateFromDVCM : "Generate from DVCM"
 })
 @observer
-export default class CreationChooser extends React.Component{
+export default class NewUseCases extends React.Component{
   handleNewClicked(){
-    this.model.createNewChosen();
+    this.model.navigateToNewUseCases();
 	}
 
   handleGenerateClicked(){
-    this.model.generateChosen();
+    this.model.navigateToGenerateUseCases();
 	}
 	render() {
     this.model = this.props.model;
