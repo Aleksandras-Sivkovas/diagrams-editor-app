@@ -50,7 +50,4 @@ export default class Event extends Node {
 		this.height = 50;
 	}
 
-  getBorderWidth(){
-		return super.getBorderWidth() + 2;
-	}
 };

@@ -68,7 +68,7 @@ export default class Node extends Component {
 	}
 
 	getBorderWidth(){
-		return this._borderWidth;//this.selected ? this._borderWidth+3 : this._borderWidth;
+		return this._borderWidth;
 	}
 	setBorderWidth(width){
 		this._borderWidth = width;
@@ -82,16 +82,16 @@ export default class Node extends Component {
 	@computed
 	get startPosition(){
 		return {
-			x:this.borderWidth,
-			y:this.borderWidth
+			x:0,
+			y:0
 		}
 	}
 
 	@computed
 	get endPosition(){
 		return {
-			x:this.width + this.borderWidth,
-			y:this.height + this.borderWidth
+			x:this.width,
+			y:this.height
 		}
 	}
 

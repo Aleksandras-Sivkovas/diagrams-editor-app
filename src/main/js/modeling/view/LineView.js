@@ -1,13 +1,29 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import ViewFactory from "./ViewFactory.js";
-@observer
-export default class SelectionRectangleView extends React.Component{
 
+@observer
+export default class LineView extends React.Component{
+
+  getStyleClass(){
+    return "line";
+  }
+  initialize(){
+    this.p1 = this.getP1();
+    this.p2 = this.getP2();
+  }
+  getHandledEvents() {
+    return null;
+  }
   render() {
-    const p1 = this.getP1();
-    const p2 = this.getP2();
-    return <div class="line" style={this.getCss(p1,p2)} />;
+    this.initialize();
+    return (
+      <div
+          class={this.getStyleClass()}
+          style={this.getCss(this.p1,this.p2)}
+          {...this.getHandledEvents()}
+      />
+    );
   }
   getP1(){
     return this.props.p1;

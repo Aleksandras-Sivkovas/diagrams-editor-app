@@ -17,8 +17,8 @@
 }
 
 .diagrams-editor>.content>.buttons>.button:hover{
-  background-color:#EEE;
+  background-color:#CCC;
 }
 .diagrams-editor>.content>.buttons>.button:active{
-  background-color:#DDD;
+  background-color:#AAA;
 }

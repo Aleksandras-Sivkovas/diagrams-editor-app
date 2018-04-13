@@ -17,8 +17,8 @@ export default class Pool extends Column {
 	@computed
 	get startPosition(){
 		return {
-			x:this.borderWidth,
-			y:61 + this.borderWidth
+			x:0,
+			y:61
 		}
 	}
 

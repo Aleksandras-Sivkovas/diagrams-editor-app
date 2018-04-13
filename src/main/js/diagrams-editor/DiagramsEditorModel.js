@@ -114,7 +114,6 @@ export default class DiagramsEditorModel{
 	@action
 	navigateToGenerateUseCases(){
 		this._generateUseCasesFromDvcmFile();
-		this._navigateToDiagram();
 	}
 
 };

@@ -1,29 +1,14 @@
-.dvcm  .modeling-component.transaction{
-  overflow:visible;
-  z-index:100;
-}
-
-.dvcm  .modeling-component.transaction .transaction-border{
+.dvcm  .line.transaction-border{
   overflow:visible;
   border-top-style: double;
   border-top-color: black;
-  border-top-width: 6px;
+  border-top-width: 4px;
   border-bottom: none;
   border-left: none;
   border-right:none;
   z-index:100;
-  /*border-radius:50%;*/
-  /*height:10px;*/
 }
 
-.dvcm  .modeling-component.transaction.selected .transaction-border{
-  border-top-width: 3px;
+.dvcm .line.selected.transaction-border{
+  border-top-width: 8px;
 }
-
-/*.dvcm  .modeling-component.transaction .transaction-border .selection-helper{
-  height:20px;
-  position:absolute;
-  top:0px;
-  left:5%;
-  width:90%;
-}*/

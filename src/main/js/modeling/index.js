@@ -5,6 +5,8 @@ export {default as EdgePointView} from "./view/EdgePointView.js";
 export {default as EdgeView} from "./view/EdgeView.js";
 export {default as NodeView} from "./view/NodeView.js";
 export {default as ComponentView} from "./view/ComponentView.js";
+export {default as LineView} from "./view/LineView.js";
+
 
 export {default as move} from "./view/decorators/move.js";
 export {default as select} from "./view/decorators/select.js";

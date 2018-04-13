@@ -13,7 +13,7 @@ export default class SelectionRectangleView extends React.Component{
     if(!position || !width || !height){
       return [];
     }
-    const distance = 3;
+    const distance = 1;
     return [
       {
           x: position.x-distance,

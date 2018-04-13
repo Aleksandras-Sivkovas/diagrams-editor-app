@@ -6,4 +6,10 @@ export default class StartEventView extends EventView {
 	getStyleClass(){
     return super.getStyleClass() + " start-event";
   }
+
+	getContent() {
+		return [
+				<div key="outer" class="outer"/>
+		];
+	}
 };

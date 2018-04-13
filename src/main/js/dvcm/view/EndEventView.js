@@ -9,10 +9,9 @@ export default class EndEventView extends EventView {
 
 	getContent() {
 		return [
-			<div
-					key="inner"
-					class="inner"
-			/>
+			<div class="outer" key="outer" >
+				<div key="inner" class="inner"/>
+			</div>
 		];
 	}
 };
