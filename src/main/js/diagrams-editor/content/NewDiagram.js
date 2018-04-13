@@ -3,7 +3,7 @@ import {observer} from "mobx-react";
 import {localizable} from "localizable";
 
 @localizable({
-	bpmn : "BPMN",
+	dvcm : "DVCM",
 	useCases : "Use cases"
 })
 @observer
@@ -23,10 +23,10 @@ export default class NewDiagram extends React.Component{
       <div
           class="button"
           onClick={this.handleBPMNClicked.bind(this)}
-          key="bpmn"
+          key="dvcm"
       >
 				<div class="text">
-        	{this.locale.bpmn}
+        	{this.locale.dvcm}
 				</div>
       </div>,
       <div

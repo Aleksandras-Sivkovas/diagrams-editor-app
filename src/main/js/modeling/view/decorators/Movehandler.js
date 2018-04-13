@@ -15,7 +15,7 @@ export default class Movehandler {
 
   previousMouseY = 0;
   previousMouseX = 0;
-  grid = 10;
+  grid = 4;
 
   handleMouseDown(e){
     if (e.button != 0) {
