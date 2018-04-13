@@ -28,4 +28,5 @@ export default class Component {
 	select(){
 		this.selected = true;
 	}
+
 };

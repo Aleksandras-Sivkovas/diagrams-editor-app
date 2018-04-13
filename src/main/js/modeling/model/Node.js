@@ -68,7 +68,7 @@ export default class Node extends Component {
 	}
 
 	getBorderWidth(){
-		return this.selected ? this._borderWidth+3 : this._borderWidth;
+		return this._borderWidth;//this.selected ? this._borderWidth+3 : this._borderWidth;
 	}
 	setBorderWidth(width){
 		this._borderWidth = width;

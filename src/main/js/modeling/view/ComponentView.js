@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import ViewFactory from "./ViewFactory.js";
+import SelectionRectangleView from "./SelectionRectangleView.js";
 @observer
 export default class ComponentView extends React.Component{
 
@@ -42,7 +43,65 @@ export default class ComponentView extends React.Component{
 		for(let edge of edges){
 			this.viewFactory.addViews(edge,views);
 		}
+		const selected = this.component.model.selected;
+		if(selected){
+			views.push(this._getSelectionView(selected));
+		}
 		return views;
+	}
+
+	_getSelectionView(selected){
+		return <SelectionRectangleView component={selected} key="selection-view"/>;
+		// const selected = this.component.model.selected;
+		// const position = selected.positionInRoot.y
+		// const selectionStyle = {
+		// 	position:"absolute",
+		// 	top: selected.positionInRoot.y-3,
+		// 	left: selected.positionInRoot.x-3,
+		// 	height: selected.height+6,
+		// 	width:selected.width+6,
+		// 	border:'solid black 3px',
+		// 	zIndex:100
+		// };
+		// return [
+		// 	<div style={{
+		// 		position:"absolute",
+		// 		top: selected.positionInRoot.y-3,
+		// 		left: selected.positionInRoot.x-3,
+		// 		height: 0,
+		// 		width:selected.width + 3,
+		// 		borderTop:'solid black 3px',
+		// 		zIndex:100
+		// 	}} class="selection_top" key="selection_top"/>,
+		// 	<div style={{
+		// 		position:"absolute",
+		// 		top: selected.positionInRoot.y-3,
+		// 		left: selected.positionInRoot.x+selected.width,
+		// 		height: selected.height + 3,
+		// 		width:0,
+		// 		borderRight:'solid black 3px',
+		// 		zIndex:100
+		// 	}} class="selection_right" key="selection_right"/>,
+		// 	<div style={{
+		// 		position:"absolute",
+		// 		top: selected.positionInRoot.y+selected.height,
+		// 		left: selected.positionInRoot.x-3,
+		// 		height: 0,
+		// 		width:selected.width + 6,
+		// 		borderBottom:'solid black 3px',
+		// 		zIndex:100
+		// 	}} class="selection_bottom" key="selection_bottom"/>,
+		// 	<div style={{
+		// 		position:"absolute",
+		// 		top: selected.positionInRoot.y-3,
+		// 		left: selected.positionInRoot.x-3,
+		// 		height: selected.height + 3,
+		// 		width:0,
+		// 		borderLeft:'solid black 3px',
+		// 		zIndex:100
+		// 	}} class="selection_left" key="selection_left"/>
+		//
+		// ];
 	}
 	getContent() {
 		return this.getChildrenViews();

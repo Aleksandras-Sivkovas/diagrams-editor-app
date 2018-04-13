@@ -4,3 +4,10 @@
 @import "resize-point.css";
 @import "row.css";
 @import "column.css";
+
+.diagram  .line{
+  z-index:101;
+  border:none;
+  border-top:3px solid #000;
+  position:absolute;
+}
