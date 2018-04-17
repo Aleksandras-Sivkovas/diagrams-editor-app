@@ -1,0 +1,8 @@
+{
+  "name": "mof",
+  "version": "0.0.0",
+  "dependencies": {
+    "mobx": "^3.3.1"
+  },
+  "main":"index.js"
+}

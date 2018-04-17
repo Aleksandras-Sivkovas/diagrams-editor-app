@@ -5,45 +5,58 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 let values;
 let config;
 switch(process.env.moduleView) {
-    case "modeling":{
-      values = {
-        INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
-      };
-      config = {
-          entry : path.join(__dirname, 'src/test/js/modeling-test/index.js'),
-          output: {
-            path: path.resolve(__dirname, 'dist/modeling-test'),
-            filename: 'modeling-test.js',
-          },
-        };
-      }
-      break;
-    case "dvcm":{
-      values = {
-        INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
-      };
-      config = {
-        entry : path.join(__dirname, 'src/test/js/dvcm-test/index.js'),
+  case "modeling":{
+    values = {
+      INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
+    };
+    config = {
+        entry : path.join(__dirname, 'src/test/js/modeling-test/index.js'),
         output: {
-          path: path.resolve(__dirname, 'dist/dvcm-test'),
-          filename: 'dvcm-test.js',
+          path: path.resolve(__dirname, 'dist/modeling-test'),
+          filename: 'modeling-test.js',
         },
       };
-      }
-      break;
-      case "use_cases":{
-        values = {
-          INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
-        };
-        config = {
-          entry : path.join(__dirname, 'src/test/js/use-cases-test/index.js'),
-          output: {
-            path: path.resolve(__dirname, 'dist/use-cases-test'),
-            filename: 'use-cases-test.js',
-          },
-        };
-        }
-        break;
+    }
+    break;
+  case "dvcm":{
+    values = {
+      INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
+    };
+    config = {
+      entry : path.join(__dirname, 'src/test/js/dvcm-test/index.js'),
+      output: {
+        path: path.resolve(__dirname, 'dist/dvcm-test'),
+        filename: 'dvcm-test.js',
+      },
+    };
+    }
+    break;
+    case "use_cases":{
+      values = {
+        INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
+      };
+      config = {
+        entry : path.join(__dirname, 'src/test/js/use-cases-test/index.js'),
+        output: {
+          path: path.resolve(__dirname, 'dist/use-cases-test'),
+          filename: 'use-cases-test.js',
+        },
+      };
+    }
+    break;
+    case "mof":{
+      values = {
+        INDEX_HTML : path.join(__dirname, 'src/test/html/index.html')
+      };
+      config = {
+        entry : path.join(__dirname, 'src/test/js/mof-test/index.js'),
+        output: {
+          path: path.resolve(__dirname, 'dist/mof-test'),
+          filename: 'mof-test.js',
+        },
+      };
+    }
+    break;
     default:{
       values = {
         INDEX_HTML : path.join(__dirname, 'src/main/html/index.html')

@@ -1,0 +1,9 @@
+{
+  "name": "mof-test",
+  "version": "0.0.0",
+  "dependencies": {
+    "mobx": "^3.3.1",
+    "mof": "file:../../../main/js/mof"
+  },
+  "main":"index.js"
+}
