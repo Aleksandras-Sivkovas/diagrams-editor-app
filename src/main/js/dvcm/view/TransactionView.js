@@ -35,14 +35,11 @@ export default class TransactionView extends React.Component{
       const width = p2.y - p1.y;
       const y = Math.floor(width/2) + p1.y;
       const css = {
-        position: "absolute",
         top:y+"px",
         left:x+'px',
-        paddingLeft:'10px',
-        textAlign:'center',
       };
       children.push(
-        <div style={css} key="transaction-name">
+        <div style={css} class="transaction-name" key="transaction-name">
           {component.name}
         </div>
       );

@@ -12,3 +12,9 @@
 .dvcm .line.selected.transaction-border{
   border-top-width: 8px;
 }
+
+.transaction-name{
+  position:absolute;
+  padding-left:10px;
+  z-index:80;
+}
