@@ -1,11 +1,11 @@
 export {default as ViewFactory} from "./view/ViewFactory.js";
+export {default as LineView} from "./view/LineView.js";
 export {default as ColumnView} from "./view/ColumnView.js";
 export {default as RowView} from "./view/RowView.js";
 export {default as EdgePointView} from "./view/EdgePointView.js";
 export {default as EdgeView} from "./view/EdgeView.js";
 export {default as NodeView} from "./view/NodeView.js";
 export {default as ComponentView} from "./view/ComponentView.js";
-export {default as LineView} from "./view/LineView.js";
 
 
 export {default as move} from "./view/decorators/move.js";

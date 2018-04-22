@@ -1,5 +1,10 @@
 import React from 'react';
 
+//TODO: for unsolved dependencies (Super expression must either be null or a
+// function, not undefined )
+import LineView from "./LineView.js";
+
+
 import ColumnView from "./ColumnView.js";
 import RowView from "./RowView.js";
 import EdgePointView from "./EdgePointView.js";

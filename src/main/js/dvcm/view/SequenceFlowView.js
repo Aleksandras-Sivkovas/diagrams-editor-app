@@ -7,4 +7,7 @@ export default class SequenceFlowView extends EdgeView {
 	getStyleClass(){
     return super.getStyleClass() + " sequence-flow";
   }
+	getTitle(){
+		return this.component.name;
+	}
 };

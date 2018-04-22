@@ -42,10 +42,9 @@
 }
 
 .diagram .edge>.title.normal-title{
-  bottom:10px;
+  bottom:0px;
 }
 
 .diagram .edge>.title.reversed-title{
-  top:10px;
   transform: rotate(180deg);
 }

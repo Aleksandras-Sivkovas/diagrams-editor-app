@@ -1,11 +1,11 @@
-.use-cases  .modeling-component.edge.inclusion ,
-.use-cases  .modeling-component.edge.extension
+.use-cases  .edge.inclusion ,
+.use-cases  .edge.extension
 {
   border-top-style:dashed;
 }
 
-.use-cases  .modeling-component.edge.inclusion .edge-end-right,
-.use-cases  .modeling-component.edge.extension .edge-end-right{
+.use-cases  .edge.inclusion .edge-end-right,
+.use-cases  .edge.extension .edge-end-right{
     width: 10px;
     height: 10px;
     transform: rotate(45deg);

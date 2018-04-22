@@ -8,7 +8,7 @@ export default class LineView extends React.Component{
   getStyleClass(){
     return "line";
   }
-  initialize(){
+  initialize(props){
     this.p1 = this.getP1();
     this.p2 = this.getP2();
   }
@@ -16,14 +16,19 @@ export default class LineView extends React.Component{
     return null;
   }
   render() {
-    this.initialize();
+    this.initialize(this.props);
     return (
       <div
           class={this.getStyleClass()}
           style={this.getCss(this.p1,this.p2)}
           {...this.getHandledEvents()}
-      />
+      >
+        {this.getContent()}
+      </div>
     );
+  }
+  getContent(){
+    return null;
   }
   getP1(){
     return this.props.p1;

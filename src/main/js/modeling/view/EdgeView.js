@@ -1,26 +1,30 @@
 import React from 'react';
 import {observer} from "mobx-react";
-import ComponentView from "./ComponentView.js";
+// import ComponentView from "./ComponentView.js";
+import LineView from './LineView.js'
 import select from "./decorators/select.js";
 
 @select
 @observer
-export default class EdgeView extends ComponentView {
-	source;
-	target;
+export default class EdgeView extends LineView {
 
 	initialize(props){
-    super.initialize(props);
 
     this.sourcePoint = props.sourcePoint;
     this.sourceTargetNode = props.sourceTargetNode;
 
 		this.targetPoint = props.targetPoint;
     this.targetNode = props.targetNode;
+		super.initialize(props);
+		this.component=props.component;
 
   }
 	getStyleClass(){
-    return super.getStyleClass() + " edge";
+    let styleClass = super.getStyleClass() + " edge";
+		if(this.component.selected){
+			styleClass += " selected";
+		}
+		return styleClass;
   }
   getContent(model){
     const children = [
@@ -35,9 +39,33 @@ export default class EdgeView extends ComponentView {
 				class="edge-end-right"
 			/>);
 		}
+		const title = this.getTitle();
+		if(title){
+			children.push(this.getTitleComponent(title));
+		}
 		return children;
   }
 
+	getTitleComponent(title){
+		const source = this.p1;
+    const target = this.p2;
+		const titleClass = (source.x > target.x) ?
+				'title reversed-title' :
+				'title normal-title';
+
+		return (
+			<div
+				class={titleClass}
+				key="title"
+			>
+				{title}
+			</div>
+		);
+  }
+
+	getTitle(){
+		return null;
+	}
 	_getEdgePointPosition(node,point){
 		if(node){
 			const edgePointPosition = node.getEdgePointPosition({x:point.x,y:point.y});
@@ -52,41 +80,12 @@ export default class EdgeView extends ComponentView {
 		};
 	}
 
-	_getSourcePosition(){
+	getP1(){
 		return this._getEdgePointPosition(this.sourceTargetNode,this.sourcePoint);
 	}
 
-	_getTargetPosition(){
+	getP2(){
 		return this._getEdgePointPosition(this.targetNode,this.targetPoint);
 	}
-
-	getCss() {
-    const p1 = this._getSourcePosition();
-    const p2 = this._getTargetPosition();
-    const x1 = p1.x;
-    const x2 = p2.x;
-    const y1 = p1.y;
-    const y2 = p2.y;
-
-    // length of line
-    const length = Math.ceil(Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2)));
-
-
-    // mid point between points
-    var xMid = (x1+x2)/2;
-    var yMid =(y1+y2)/2;
-
-    // salope of the line
-    const salopeInRadian = Math.atan2(y2-y1, x2-x1);
-    const salopeInDegrees = (salopeInRadian * 180)/Math.PI;
-
-    return {
-      top:yMid + 'px',
-      left:( xMid - (length/2) ) + 'px',
-      width:length+'px',
-      transform:'rotate(' + salopeInDegrees + 'deg)'
-    }
-	}
-
-
+	
 };

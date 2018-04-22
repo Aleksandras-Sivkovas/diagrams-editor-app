@@ -13,24 +13,8 @@ export default class InclusionView extends EdgeView {
     return super.getStyleClass() + " inclusion ";
   }
 
-	getContent(model){
-    const children = super.getContent();
-
-		const source = this._getSourcePosition();
-    const target = this._getTargetPosition();
-		const titleClass = (source.x > target.x) ?
-				'title reversed-title' :
-				'title normal-title';
-
-		children.push(
-			<div
-				class={titleClass}
-				key="title"
-			>
-				{"<<" + this.locale.include + ">>"}
-			</div>
-		);
-		return children;
-  }
+	getTitle(){
+		return "<<" + this.locale.include + ">>";
+	}
 
 };
