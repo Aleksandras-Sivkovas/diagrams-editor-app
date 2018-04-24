@@ -16,6 +16,6 @@ export default class Actor extends Node {
 	constructor(name){
 		super();
 		this.name = name;
-		this.width = 80;
+		this.width = 40;
 	}
 };

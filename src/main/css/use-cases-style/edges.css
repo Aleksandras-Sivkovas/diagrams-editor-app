@@ -15,3 +15,7 @@
     border-right: solid #000000 4px;
     background: transparent;
 }
+
+.use-cases .line.edge.association .edge-end-right{
+  display:none;
+}

@@ -8,4 +8,7 @@ export default class AssociationView extends EdgeView {
 	getStyleClass(){
     return super.getStyleClass() + " association ";
   }
+	getTitle(){
+		return this.component.name;
+	}
 };

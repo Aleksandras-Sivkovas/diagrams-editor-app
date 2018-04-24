@@ -315,20 +315,20 @@ export default class UseCasesGenerator {
         y2 += 120;
       }
       system.append(useCase.useCase);
-      for(let pool of useCase.usedBy){
-        const actor = actors.get(pool);
-        const association = new Association();
-
-        association.sourcePoint.y = Math.floor(actor.height/2);
-        association.sourcePoint.x = actor.width;
-
-        association.targetPoint.y = Math.floor(useCase.useCase.height/2);
-
-        association.source = actor;
-        association.target = useCase.useCase;
-
-        model.addEdge(association);
-      }
+      // for(let pool of useCase.usedBy){
+      //   const actor = actors.get(pool);
+      //   const association = new Association();
+      //
+      //   association.sourcePoint.y = Math.floor(actor.height/2);
+      //   association.sourcePoint.x = actor.width;
+      //
+      //   association.targetPoint.y = Math.floor(useCase.useCase.height/2);
+      //
+      //   association.source = actor;
+      //   association.target = useCase.useCase;
+      //
+      //   model.addEdge(association);
+      // }
     }
     system.height = Math.max(y1,y2);
     system.width = 600;

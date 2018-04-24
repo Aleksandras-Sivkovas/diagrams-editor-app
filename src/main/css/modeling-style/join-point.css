@@ -2,12 +2,14 @@
   border-radius:50%;
   border-width:8px;
   border-style: solid;
-  border-color:transparent;
+  /*border-color:transparent;*/
+  border-color: black;
   width:0px;
   height:0px;
   cursor:move;
   z-index: 100;
+  display:none;
 }
 .diagram .join-point.selected{
-  border-color: black;
+  display:block;
 }

@@ -10,14 +10,14 @@ import {localizable} from "localizable";
 })
 @observer
 export default class Main extends React.Component{
-	handleNewClicked(e){
+	handleNewClicked(){
 		this.model.navigateToNewDiagram();
 	}
 
-	handleImport(e){
+	handleImport(){
 		this.model.import();
 	}
-	handleExport(e){
+	handleExport(){
 		this.model.export();
 	}
 	render() {

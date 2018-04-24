@@ -12,4 +12,16 @@ export default class AssociationConverter extends EdgeConverter {
     return new Association();
   }
 
+  convertToModel(object){
+    const model = super.convertToModel(...arguments);
+    model.name = object.name;
+    return model;
+  }
+
+  convertToObject(model){
+    const object = super.convertToObject(...arguments);
+    object.name = model.name;
+    return object;
+  }
+  
 };
