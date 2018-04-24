@@ -1,0 +1,9 @@
+{
+  "name": "export-as-image",
+  "version": "0.0.0",
+  "dependencies": {
+    "file-saver": "^1.3.8",
+    "html2canvas": "file:./html2canvas"
+  },
+  "main": "index.js"
+}

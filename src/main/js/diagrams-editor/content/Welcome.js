@@ -24,7 +24,7 @@ export default class Main extends React.Component{
 	render() {
     this.model = this.props.model;
 		return (
-      <div>
+      <div class="welcome">
       	{this.locale.welcome}
 				<div>
 					{this.locale.ui}:
@@ -40,7 +40,7 @@ export default class Main extends React.Component{
 					{this.locale.newDVCMExplanation}.
 				</div>
 				<div>
-					{this.locale.new}->{this.locale.useCases}->{this.locale.newDiagram} - 
+					{this.locale.new}->{this.locale.useCases}->{this.locale.newDiagram} -
 					{this.locale.newUseCasesExplanation}.
 				</div>
 				<div>

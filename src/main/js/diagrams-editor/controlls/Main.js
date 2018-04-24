@@ -18,8 +18,9 @@ export default class Main extends React.Component{
 		this.model.import();
 	}
 	handleExport(){
-		this.model.export();
+		this.model.navigateToExport();
 	}
+
 	render() {
     this.model = this.props.model;
 		const children = [
@@ -44,7 +45,7 @@ export default class Main extends React.Component{
 					<div class="text">
 	      		{this.locale.export}
 					</div>
-	      </div>,
+	      </div>
 			);
 		}
 		return children;

@@ -8,6 +8,7 @@ import {DVCMView,DVCM} from "dvcm";
 import {UseCasesView,UseCases} from "use-cases";
 import {localizable} from "localizable";
 import Welcome from "./content/Welcome.js";
+import Export from "./content/Export.js";
 
 @localizable({
 	diagramsEditor : "Diagrams editor"
@@ -33,7 +34,7 @@ export default class DiagramsEditor extends React.Component{
 	_getContent(){
 		if(this._editorModel.pageDiagram){
 			return (
-				<div class="diagram">
+				<div class="diagram" id="diagram-container">
 					{this._getDiagram()}
 				</div>
 			);
@@ -49,6 +50,13 @@ export default class DiagramsEditor extends React.Component{
 			return (
 				<div class="buttons">
 					<NewUseCases model={this._editorModel} />
+				</div>
+			);
+		}
+		if(this._editorModel.pageExport){
+			return (
+				<div class="buttons">
+					<Export model={this._editorModel} />
 				</div>
 			);
 		}
