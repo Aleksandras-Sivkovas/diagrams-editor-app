@@ -38,7 +38,7 @@ export default class UseCasesGenerator {
     const functions =  dvcm.activities.filter(activity => activity.isFunction);
 
   	this._addGeneralUseCases(edges,useCases,functions,useCasesFunctionsmap);
-  	// this._addUnusedCases(useCases,functions);
+  	this._addUnusedCases(edges,useCases,functions,actors,useCasesFunctionsmap);
 
   	return this._createUseCaseDiagramModel(dvcm.name,useCases,edges,actors);
   }
@@ -129,10 +129,6 @@ export default class UseCasesGenerator {
       associationName += " " + end.name;
     }
     association.name = associationName;
-    // TODO: move view things somewhere else
-    // association.sourcePoint.y = Math.floor(actor.height/2);
-    // association.sourcePoint.x = actor.width;
-    // association.targetPoint.y = Math.floor(useCase.height/2);
   }
   _addCycledFlows = function(cycledFlows,currentPath, newFlow,process,sequenceFlows){
     if(currentPath.includes(newFlow)){
@@ -167,60 +163,6 @@ export default class UseCasesGenerator {
     return pathFound;
   }
 
-  _createUseCaseFromFlow(flow){
-    const useCase = new UseCase(flow.target.name);
-    return {
-      createdFromFlow:flow,
-      useCase: useCase,
-      usedBy: [flow.target.parent]
-    }
-  }
-
-  _createUseCaseFromTransaction(transaction){
-    const useCase = new UseCase(transaction.name);
-    return {
-      createdFromFlow:{},
-      useCase: useCase,
-      usedBy: []
-    }
-  }
-
-  _createUseCaseFromActivity(activity){
-    const useCase = new UseCase(activity.name);
-    return {
-      createdFromFlow:{},
-      useCase: useCase,
-      usedBy: [activity.parent]
-    }
-  }
-  /**
-   * @param component may be of type SequenceFlow, Transaction
-   */
-  _createUseCase(component){
-    if(component instanceof SequenceFlow){
-      return this._createUseCaseFromFlow(component);
-    }
-    if(component instanceof Transaction){
-      return this._createUseCaseFromTransaction(component);
-    }
-    const useCase = new UseCase(component.name);
-    return {
-      createdFromFlow:{},
-      useCase: useCase,
-      usedBy: [component.parent]
-    };
-  }
-
-
-  /**
-   * @param activity activity that is not used by transactions
-   */
-  _createUnusedUsecase(activity){
-    const useCase = this._createUseCaseFromActivity(activity);
-    useCase.name += "Not in transaction";
-    return useCase;
-  }
-
   _addGeneralUseCases(edges,useCases,functions,useCasesFunctionsmap){
     for(let f of functions){
   		const useCasesUsingThisFunction = useCasesFunctionsmap.get(f);
@@ -238,16 +180,29 @@ export default class UseCasesGenerator {
   	}
   }
 
-  _addUnusedCases(useCases,functions){
+  _addUnusedCases(edges,useCases,functions,actors,useCasesFunctionsmap){
     const createdFromFunction = function(useCase) {
       return (useCase.createdFromFlow.target == this);
     }
     for(let f of functions){
-      if(useCases.some(createdFromFunction,f)){
+      if(useCasesFunctionsmap.get(f)){
         continue;
       }
-  		const useCase = this._createUnusedUsecase(f);
+      const useCase = new UseCase(f.name + "Not in transaction");
+      useCase.errors = true;
   		useCases.push(useCase);
+
+      const actorName = f.parent.name;
+      let actor = actors.get(actorName);
+      if(!actor){
+        actor = new Actor(actorName);
+        actors.set(actorName,actor);
+      }
+
+      const association = new Association();
+      edges.push(association);
+      association.source = actor;
+      association.target = useCase;
   	}
   }
 
@@ -341,6 +296,9 @@ export default class UseCasesGenerator {
     let maxY = 0;
     for(let level of levels){
       for(let useCase of level.cases){
+        // if(useCase.errors){
+        //   continue;
+        // }
         useCase.position.x = level.x;
         useCase.position.y = level.y;
         level.y += useCase.height + 50;

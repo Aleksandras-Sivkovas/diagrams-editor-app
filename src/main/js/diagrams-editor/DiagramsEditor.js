@@ -10,6 +10,10 @@ import {localizable} from "localizable";
 import Welcome from "./content/Welcome.js";
 import Export from "./content/Export.js";
 
+// TODO: remove after ui done
+import * as dvcm from "dvcm";
+import * as useCases from "use-cases";
+
 @localizable({
 	diagramsEditor : "Diagrams editor"
 })
@@ -18,6 +22,11 @@ export default class DiagramsEditor extends React.Component{
   constructor(){
     super();
     this._editorModel = new DiagramsEditorModel();
+
+		// TODO: remove after ui done
+		window.editorModel = this._editorModel;
+		window.dvcm = dvcm;
+		window.useCases = useCases;
   }
   _getDiagram(){
     if(!this._editorModel.diagram){

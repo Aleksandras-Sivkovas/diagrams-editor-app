@@ -9,7 +9,7 @@ export default class ComponentView extends React.Component{
 	component;
 
 	getStyleClass() {
-		let styleClass = "modeling-component";
+		let styleClass = "modeling-component" + " id_" + this.component.id;
 		const className = this.props.className;
 		if(className){
 			styleClass += " " + className;
