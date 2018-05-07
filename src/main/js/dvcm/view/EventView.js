@@ -10,4 +10,9 @@ export default class EventView extends NodeView {
     return super.getStyleClass() + " event";
   }
 
+	getContent() {
+		return [
+				<div key="outer" class="outer"/>
+		];
+	}
 };

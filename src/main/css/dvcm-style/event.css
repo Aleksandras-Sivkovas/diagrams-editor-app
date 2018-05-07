@@ -3,7 +3,7 @@
 }
 .dvcm  .event .outer{
     border-radius: 50%;
-    border:solid #000 2px;
+    border:solid #000 1px;
     width:100%;
     height:100%;
     box-sizing: border-box;
@@ -13,15 +13,5 @@
 }
 
 .dvcm  .event.end-event .outer{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    border-width:5px;
-}
-
-.dvcm  .event.end-event .outer .inner {
-    border-radius: 50%;
-    width: 80%;
-    height: 80%;
-    background-color: #000000;
+    border-width:6px;
 }
