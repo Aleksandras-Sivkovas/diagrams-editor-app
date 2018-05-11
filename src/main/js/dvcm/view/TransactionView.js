@@ -30,21 +30,6 @@ export default class TransactionView extends React.Component{
 
     const functionsRectangle = component.functionsPoints;
     const label = new TransactionLabel(component);
-    if(!component.labelPosition){
-      let x = 0;
-      let y = 0;
-      if(functionsRectangle.length == 4){
-        const p1 = functionsRectangle[1];
-        const p2 = functionsRectangle[2];
-        x = p1.x;
-        const width = p2.y - p1.y;
-        y = Math.floor(width/2) + p1.y;
-      }
-      component.labelPosition = {
-        x : x,
-        y : y
-      };
-    }
 
     children.push(
       <LabelView class="transaction-name" key="transaction-name" component={label} >

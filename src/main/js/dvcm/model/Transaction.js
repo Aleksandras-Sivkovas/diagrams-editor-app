@@ -5,7 +5,7 @@ import InTransaction from "./InTransaction.js"
 export default class Transaction extends Component {
 
   @observable
-  labelPosition;
+  labelPosition = {x:0,y:0};
 
   @computed
   get activities(){
