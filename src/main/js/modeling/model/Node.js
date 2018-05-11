@@ -97,13 +97,15 @@ export default class Node extends Component {
 
 	@computed
 	get positionInRoot(){
-		const position = new Point();
+		let x = 0;
+		let y = 0;
 		for(let parent of this.parents){
-			position.x = position.x  + parent.position.x + parent.startPosition.x;
-			position.y = position.y  + parent.position.y + parent.startPosition.y;
+			x += parent.position.x + parent.startPosition.x;
+			y += parent.position.y + parent.startPosition.y;
 		}
-		position.x +=  this.position.x;
-		position.y +=  this.position.y;
+		x +=  this.position.x;
+		y +=  this.position.y;
+		const position = new Point(x,y);
 		return position;
 	}
 

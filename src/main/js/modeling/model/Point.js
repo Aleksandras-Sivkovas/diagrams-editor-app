@@ -1,15 +1,33 @@
-import {observable} from "mobx";
+import {observable,computed} from "mobx";
 
 export default class Point {
 
 	@observable
-	x = 0;
+	_x;
 
 	@observable
-	y = 0;
+	_y;
+
+	@computed
+	get x(){
+		return this._x;
+	}
+
+	set x(x){
+		this._x = x;
+	}
+
+	@computed
+	get y(){
+		return this._y;
+	}
+
+	set y(y){
+		this._y = y;
+	}
 
 	constructor(x,y){
-		if(x) this.x = x;
-		if(y) this.y = y;
+		this.x = x ? x : 0;
+		this.y = y ? y : 0;
 	}
 };
