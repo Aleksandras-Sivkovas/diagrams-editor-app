@@ -12,6 +12,21 @@
 .dvcm  .event.start-event {
 }
 
-.dvcm  .event.end-event .outer{
+/*.dvcm  .event.end-event .outer{
     border-width:6px;
+}*/
+
+.dvcm  .event.end-event .outer{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border-width:5px;
+ }
+
+ .dvcm  .event.end-event .outer .inner {
+      border-radius: 50%;
+      width: 80%;
+      height: 80%;
+      background-color: #000000;
+      border-width:6px;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
-import {select} from "modeling";
+import TransactionLabel from "../model/TransactionLabel.js";
+import {select,LabelView} from "modeling";
 import TransactionBorderView from "./TransactionBorderView.js";
 
 @select
@@ -28,23 +29,29 @@ export default class TransactionView extends React.Component{
     }
 
     const functionsRectangle = component.functionsPoints;
-    if(functionsRectangle.length == 4){
-      const p1 = points[1];
-      const p2 = points[2];
-      const x = p1.x;
-      const width = p2.y - p1.y;
-      const y = Math.floor(width/2) + p1.y;
-      const css = {
-        top:y+"px",
-        left:x+'px',
+    const label = new TransactionLabel();
+    label.transaction = component;
+    if(!component.labelPosition){
+      let x = 0;
+      let y = 0;
+      if(functionsRectangle.length == 4){
+        const p1 = points[1];
+        const p2 = points[2];
+        x = p1.x;
+        const width = p2.y - p1.y;
+        y = Math.floor(width/2) + p1.y;
+      }
+      component.labelPosition = {
+        x : x,
+        y : y
       };
-      children.push(
-        <div style={css} class="transaction-name" key="transaction-name">
-          {component.name}
-        </div>
-      );
-
     }
+
+    children.push(
+      <LabelView class="transaction-name" key="transaction-name" component={label} >
+        {component.name}
+      </LabelView>
+    );
 		return children;
 	}
 };

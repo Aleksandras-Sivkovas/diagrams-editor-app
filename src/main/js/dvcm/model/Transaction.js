@@ -4,6 +4,9 @@ import InTransaction from "./InTransaction.js"
 
 export default class Transaction extends Component {
 
+  @observable
+  labelPosition;
+
   @computed
   get activities(){
     const activities = [];
