@@ -9,7 +9,7 @@ export default class Model {
 	_nextId = 1;
 
 	@observable
-	name;
+	name = "Model";
 
 	@observable
 	selected;
