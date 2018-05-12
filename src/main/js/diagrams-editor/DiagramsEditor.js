@@ -9,6 +9,7 @@ import {UseCasesView,UseCases} from "use-cases";
 import {localizable} from "localizable";
 import Welcome from "./content/Welcome.js";
 import Export from "./content/Export.js";
+import DiagramContainer from "./content/DiagramContainer.js";
 
 // TODO: remove after ui done
 import * as dvcm from "dvcm";
@@ -43,9 +44,9 @@ export default class DiagramsEditor extends React.Component{
 	_getContent(){
 		if(this._editorModel.pageDiagram){
 			return (
-				<div class="diagram" id="diagram-container">
+				<DiagramContainer model={this._editorModel}>
 					{this._getDiagram()}
-				</div>
+				</DiagramContainer>
 			);
 		}
 		if(this._editorModel.pageNewDiagram){

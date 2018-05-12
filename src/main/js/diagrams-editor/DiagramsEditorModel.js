@@ -90,13 +90,14 @@ export default class DiagramsEditorModel{
 		}
 		// TODO: think of better option to do this
 		this.diagram.selected = null;
+		this.isExportoToImage = true;
 		this._navigateToDiagram();
-		this._waitDiagramRenderingAndExport();
 	}
 
-	_waitDiagramRenderingAndExport(){
-		const container = document.getElementById("diagram-container");
-		if(container){
+	executeDiagramMounted(){
+		if(this.isExportoToImage){
+			this.isExportoToImage = false;
+			const container = document.getElementById("diagram-container");
 			const imageExporter = new ImageExporter();
 			imageExporter.exportAsImage(
 				container.children[0],
@@ -104,8 +105,6 @@ export default class DiagramsEditorModel{
 			);
 			return;
 		}
-		const waitingFunction = this._waitDiagramRenderingAndExport.bind(this);
-		setTimeout(waitingFunction,100);
 	}
 
 

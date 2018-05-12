@@ -5,7 +5,8 @@ export default class ImageExporter{
   exportAsImage(html,fileName){
     const saveFunction = this.saveFile.bind(this);
     html2canvas(html,{
-      logging:false
+      logging:false,
+      scale:2
     }).then(function(canvas) {
       canvas.toBlob(function(blob){
         saveFunction(blob,fileName);
