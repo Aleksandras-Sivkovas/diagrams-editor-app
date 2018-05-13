@@ -9,7 +9,6 @@
   justify-content: space-evenly;
 
   box-sizing: border-box;
-  border-bottom:groove #CCC 8px;
 }
 .diagrams-editor .content .tabs>.tab{
   min-width: 0px;
@@ -19,6 +18,7 @@
   box-sizing: border-box;
   border:solid #000 1px;
   cursor:pointer;
+  padding-right:4vh;
 
   margin: auto;
   flex-grow:1;
@@ -45,21 +45,36 @@
 }
 
 .diagrams-editor .content .tabs>.tab .close{
-  width:2vw;
-  height:2vh;
+  width:20px;
+  height:20px;
+  width:4vh;
+  height:4vh;
   position:absolute;
-  top:10%;
+  top:0px;
   right:0px;
+  background-color: #999;
+  border-radius: 50%;
+}
+
+
+.diagrams-editor .content .tabs>.tab .close:hover{
+  background-color: #777;
 }
 
 .diagrams-editor .content .tabs>.tab .close .inner{
-  top:5%;
+  top:40%;
   left:5%;
   position:absolute;
   width:90%;
   height:2px;
+  height:0.1vh;
   background-color:#000;
 }
+
+.diagrams-editor .content .tabs>.tab .close:hover .inner{
+  background-color: #fff;
+}
+
 .diagrams-editor .content .tabs>.tab .close .inner.left{
   transform:rotate(45deg);
 }

@@ -10,14 +10,27 @@ export default class UseCasesGenerator {
     return null;
   }
 
-  generateFromDVCM(dvcm){
+  _createUseCasesObject(){
+    return {
+      transactionuseCases:[],
+      functionUseCases:[],
+      subfunctionUseCases:[],
+      generalUseCases:[],
+      unusedUseCases:[]
+    };
+  }
+
+  _generateDVCMData(dvcm){
     const sequenceFlows = dvcm.sequenceFlows;
     const transactions = dvcm.transactions;
 
-    const useCases = [];
+    const useCases = this._createUseCasesObject();
     const edges = [];
     const actors = new Map();
-    const useCasesFunctionsmap = new Map();
+    const mappings = {
+      useCasesFunctionsmap: new Map(),
+      useCasesTransactionsMap: new Map()
+    }
 
     for(let transaction of transactions){
       if(transaction.processes.length < 1){
@@ -26,52 +39,94 @@ export default class UseCasesGenerator {
       const process = transaction.processes[0];
       const transactionSequenceFlows = this.
           _getTransactionSequenceFlows(transaction,sequenceFlows);
-  		const cycle = this.
+      const cycle = this.
           _getCycleForProcess(process,transactionSequenceFlows);
       if(!cycle){
         continue;
       }
-  		this._addUseCases(edges,useCases,actors,cycle,transaction,useCasesFunctionsmap);
-  	}
+      this._addUseCases(edges,useCases,actors,cycle,transaction,mappings);
+    }
 
     // getFunctions
     const functions =  dvcm.activities.filter(activity => activity.isFunction);
 
-  	this._addGeneralUseCases(edges,useCases,functions,useCasesFunctionsmap);
-  	this._addUnusedCases(edges,useCases,functions,actors,useCasesFunctionsmap);
+    this._addGeneralUseCases(edges,useCases,functions,mappings);
+    this._addUnusedCases(edges,useCases,functions,actors,mappings);
 
-  	return this._createUseCaseDiagramModel(dvcm.name,useCases,edges,actors);
+    return {
+      useCases:useCases,
+      edges:edges,
+      actors:actors,
+      mappings:mappings,
+    }
+  }
+  generateFromDVCM(dvcm){
+    const dvcmData = this._generateDVCMData(dvcm);
+  	return this._createUseCaseDiagramModel(
+      dvcm.name,
+      dvcmData.useCases,
+      dvcmData.edges,
+      dvcmData.actors
+    );
   }
 
+  _getAllNodesUseCasesSet(useCases){
+    const set = new Set();
+    const entries = Object.entries(useCases);
+    for(let entry of entries){
+      const collection = entry[1];
+      for(let element of collection){
+        set.add(element);
+      }
+    }
+    return set;
+  }
   generateByTransactionFromDVCM(dvcm){
+    const dvcmData = this._generateDVCMData(dvcm);
     const transactions = dvcm.transactions;
-    const sequenceFlows = dvcm.sequenceFlows;
-
     const diagrams = [];
     for(let transaction of transactions){
-      const useCases = [];
-      const edges = [];
+      const useCasesFilterFunction = function(useCase){
+        const set = dvcmData.mappings.useCasesTransactionsMap.get(useCase);
+        if(!set){
+          return false;
+        }
+        return set.has(transaction);
+      }
+      const useCases = this._createUseCasesObject();
+      useCases.transactionuseCases = dvcmData.useCases.
+            transactionuseCases.filter(useCasesFilterFunction);
+      useCases.functionUseCases = dvcmData.useCases.
+            functionUseCases.filter(useCasesFilterFunction);
+      useCases.subfunctionUseCases = dvcmData.useCases.
+            subfunctionUseCases.filter(useCasesFilterFunction);
+      useCases.generalUseCases = dvcmData.useCases.
+            generalUseCases.filter(useCasesFilterFunction);
+      const allUseCases = this._getAllNodesUseCasesSet(useCases);
+      const edges = dvcmData.edges.filter(edge=>(
+        allUseCases.has(edge.target)
+      ));
+
       const actors = new Map();
-      const useCasesFunctionsmap = new Map();
-
-      if(transaction.processes.length < 1){
-        continue;
+      for(let entry of dvcmData.actors.entries()){
+        const actor =  entry[1];
+        if(
+            edges.some(edge =>(
+              edge.source == actor
+            ))
+        ){
+          actors.set(entry[0],actor);
+        }
       }
-      const process = transaction.processes[0];
-      const transactionSequenceFlows = this.
-          _getTransactionSequenceFlows(transaction,sequenceFlows);
-  		const cycle = this.
-          _getCycleForProcess(process,transactionSequenceFlows);
-      if(!cycle){
-        continue;
-      }
-  		this._addUseCases(edges,useCases,actors,cycle,transaction,useCasesFunctionsmap);
-
       diagrams.push(
-        this._createUseCaseDiagramModel(dvcm.name+":"+transaction.name,useCases,edges,actors)
+        this._createUseCaseDiagramModel(
+          dvcm.name+":" + transaction.name,
+          useCases,
+          edges,
+          actors
+        )
       );
-  	}
-
+    }
   	return diagrams;
   }
 
@@ -105,10 +160,10 @@ export default class UseCasesGenerator {
       process: process
     };
   }
-  _addUseCases(edges,useCases,actors,cycle,transaction,useCasesFunctionsmap){
+  _addUseCases(edges,useCases,actors,cycle,transaction,mappings){
     const mainUseCase = new UseCase(transaction.name);
-    useCases.push(mainUseCase);
-    this._addProcessAsActor(edges,useCases,actors,cycle,mainUseCase);
+    useCases.transactionuseCases.push(mainUseCase);
+    this._addProcessAsActor(edges,actors,cycle,mainUseCase);
     const mainPrefix = transaction.name + ":";
   	for(let flow of cycle.cycledFlows){
       if(flow.target == cycle.process){
@@ -116,7 +171,7 @@ export default class UseCasesGenerator {
       }
       const name = mainPrefix + flow.target.name;
   		const useCase = new UseCase(name);
-      useCases.push(useCase);
+      useCases.subfunctionUseCases.push(useCase);
       const include = new Inclusion();
       include.source = mainUseCase;
       include.target = useCase;
@@ -136,15 +191,19 @@ export default class UseCasesGenerator {
       let associationName = flow.name;
       association.name = associationName;
 
-      let functionUseCases = useCasesFunctionsmap.get(flow.target);
+      let functionUseCases = mappings.useCasesFunctionsmap.get(flow.target);
       if(!functionUseCases){
         functionUseCases = [];
-        useCasesFunctionsmap.set(flow.target,functionUseCases);
+        mappings.useCasesFunctionsmap.set(flow.target,functionUseCases);
       }
       functionUseCases.push(useCase);
+
+      let useCaseTransactions = new Set();
+      mappings.useCasesTransactionsMap.set(useCase,useCaseTransactions);
+      useCaseTransactions.add(transaction);
   	}
   }
-  _addProcessAsActor(edges,useCases,actors,cycle,useCase){
+  _addProcessAsActor(edges,actors,cycle,useCase){
     const actorName = cycle.start.source.name;
     let actor = actors.get(actorName);
     if(!actor){
@@ -195,34 +254,44 @@ export default class UseCasesGenerator {
     return pathFound;
   }
 
-  _addGeneralUseCases(edges,useCases,functions,useCasesFunctionsmap){
+  _addGeneralUseCases(edges,useCases,functions,mappings){
     for(let f of functions){
-  		const useCasesUsingThisFunction = useCasesFunctionsmap.get(f);
+  		const useCasesUsingThisFunction = mappings.useCasesFunctionsmap.get(f);
   		if(!useCasesUsingThisFunction || (useCasesUsingThisFunction.length < 2)){
   			continue;
   		}
   		const generalUseCase = new UseCase(f.name);
-  		useCases.push(generalUseCase);
+  		useCases.generalUseCases.push(generalUseCase);
   		for(let useCase of useCasesUsingThisFunction){
         const extend = new Extension();
         extend.source = useCase;
         extend.target = generalUseCase;
   			edges.push(extend);
+
+        let useCaseTransactions = mappings.useCasesTransactionsMap.get(useCase);
+        if(useCaseTransactions){
+          let newUseCaseTransactions = mappings.useCasesTransactionsMap.get(generalUseCase);
+          if(!newUseCaseTransactions){
+            newUseCaseTransactions = new Set();
+            mappings.useCasesTransactionsMap.set(generalUseCase,newUseCaseTransactions);
+          }
+          for(let transaction of useCaseTransactions){
+            newUseCaseTransactions.add(transaction);
+          }
+        }
+
   		}
   	}
   }
 
-  _addUnusedCases(edges,useCases,functions,actors,useCasesFunctionsmap){
-    const createdFromFunction = function(useCase) {
-      return (useCase.createdFromFlow.target == this);
-    }
+  _addUnusedCases(edges,useCases,functions,actors,mappings){
     for(let f of functions){
-      if(useCasesFunctionsmap.get(f)){
+      if(mappings.useCasesFunctionsmap.get(f)){
         continue;
       }
       const useCase = new UseCase(f.name + "Not in transaction");
       useCase.errors = true;
-  		useCases.push(useCase);
+  		useCases.unusedUseCases.push(useCase);
 
       const actorName = f.parent.name;
       let actor = actors.get(actorName);
@@ -230,7 +299,6 @@ export default class UseCasesGenerator {
         actor = new Actor(actorName);
         actors.set(actorName,actor);
       }
-
       const association = new Association();
       edges.push(association);
       association.source = actor;
@@ -250,61 +318,28 @@ export default class UseCasesGenerator {
   }
 
   _addToLevels(edges,useCases){
-    const added = new Set();
-
-    const extended = [];
-    const extensions = edges.filter(edge => (edge instanceof Extension));
-    for(let extension of extensions){
-      const useCase = extension.target;
-      if(added.has(useCase)){
-        continue;
-      }
-      added.add(useCase);
-      extended.push(useCase);
-    }
-
-    const included = [];
-    const inclusions = edges.filter(edge => (edge instanceof Inclusion));
-    for(let inclusion of inclusions){
-      const useCase = inclusion.source;
-      if(added.has(useCase)){
-        continue;
-      }
-      added.add(useCase);
-      included.push(useCase);
-    }
-
-    const left = [];
-    for(let useCase of useCases){
-      if(added.has(useCase)){
-        continue;
-      }
-      added.add(useCase);
-      left.push(useCase);
-    }
-
 
 
     let x = 10;
     const distance = 300;
     const levels = [];
     levels.push({
-      cases: left,
+      cases: useCases.subfunctionUseCases.concat(useCases.unusedUseCases),
       x:x,
       y:10
     });
-    if(included.length > 0){
+    if(useCases.transactionuseCases.length > 0){
       x += distance;
       levels.push({
-        cases: included,
+        cases: useCases.transactionuseCases,
         x:x,
         y:100
       });
     }
-    if(extended.length > 0){
+    if(useCases.generalUseCases.length > 0){
       x += distance;
       levels.push({
-        cases: extended,
+        cases: useCases.generalUseCases,
         x:x,
         y:100
       });
@@ -328,9 +363,6 @@ export default class UseCasesGenerator {
     let maxY = 0;
     for(let level of levels){
       for(let useCase of level.cases){
-        // if(useCase.errors){
-        //   continue;
-        // }
         useCase.position.x = level.x;
         useCase.position.y = level.y;
         level.y += useCase.height + 50;
