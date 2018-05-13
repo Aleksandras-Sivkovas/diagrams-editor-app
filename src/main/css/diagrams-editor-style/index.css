@@ -2,6 +2,7 @@
 @import "~use-cases-style";
 @import "controlls.css";
 @import "content.css";
+@import "tabs.css";
 
 .diagrams-editor{
   height:100%;

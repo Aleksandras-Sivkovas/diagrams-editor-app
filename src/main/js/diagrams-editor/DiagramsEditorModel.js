@@ -14,24 +14,22 @@ const paths = {
 
 export default class DiagramsEditorModel{
 
+	_diagramIndex = 0;
+
 	@observable
-	diagrams = [];
+	diagrams = new Map();
 
 	@observable
 	currentDiagramindex;
 
 	@computed
 	get diagram(){
-		return this.diagrams[this.currentDiagramindex];
+		return this.diagrams.get(this.currentDiagramindex);
 	}
 
 	set diagram(diagram){
-		// this.currentDiagramindex = 0;
-		// this.diagrams = [
-		// 	diagram
-		// ];
-		this.diagrams.push(diagram);
-		this.currentDiagramindex = this.diagrams.length - 1;
+		this.currentDiagramindex = this._getNextDiagramIndex();
+		this.diagrams.set(this.currentDiagramindex,diagram);
 	}
 
 	@observable
@@ -171,4 +169,24 @@ export default class DiagramsEditorModel{
 		this._navigation = paths.EXPORT;
 	}
 
+	@action
+	navigateToWelcome(){
+		this._navigation = null;
+	}
+
+	_getNextDiagramIndex(){
+		return this._diagramIndex++;
+	}
+
+	@action
+	removeDiagram(diagramId){
+		this.diagrams.delete(diagramId);
+    if(this.currentDiagramindex == diagramId){
+			if(this.diagrams.size > 0){
+				this.currentDiagramindex = this.diagrams.keys()[0];
+			}else{
+				this.navigateToWelcome();
+			}
+		}
+	}
 };

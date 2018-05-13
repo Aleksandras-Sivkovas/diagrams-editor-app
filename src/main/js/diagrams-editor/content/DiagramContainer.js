@@ -1,6 +1,8 @@
 import React from 'react';
 import Tab from "./Tab.js";
+import {observer} from "mobx-react";
 
+@observer
 export default class DiagramContainer extends React.Component{
 
   componentDidMount(){
@@ -8,7 +10,8 @@ export default class DiagramContainer extends React.Component{
   }
   _getTabs(){
     const tabs = [];
-    for(let i = 0;i<this.props.model.diagrams.length;i++){
+    // for(let i = 0;i<this.props.model.diagrams.length;i++){
+    for(let i of this.props.model.diagrams.keys()){
       tabs.push(
         <Tab model={this.props.model} tabId={i} key={i}>
         </Tab>
