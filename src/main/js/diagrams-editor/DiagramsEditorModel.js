@@ -15,7 +15,24 @@ const paths = {
 export default class DiagramsEditorModel{
 
 	@observable
-	diagram;
+	diagrams = [];
+
+	@observable
+	currentDiagramindex;
+
+	@computed
+	get diagram(){
+		return this.diagrams[this.currentDiagramindex];
+	}
+
+	set diagram(diagram){
+		// this.currentDiagramindex = 0;
+		// this.diagrams = [
+		// 	diagram
+		// ];
+		this.diagrams.push(diagram);
+		this.currentDiagramindex = this.diagrams.length - 1;
+	}
 
 	@observable
 	_navigation

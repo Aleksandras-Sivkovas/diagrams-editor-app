@@ -1,4 +1,5 @@
 import React from 'react';
+import Tab from "./Tab.js";
 
 export default class DiagramContainer extends React.Component{
 
@@ -7,21 +8,12 @@ export default class DiagramContainer extends React.Component{
   }
   _getTabs(){
     const tabs = [];
-    tabs.push(
-      <div class="tab" key={0}>
-        {this.props.model.diagram.name}
-      </div>
-    );
-    tabs.push(
-      <div class="tab" key={1}>
-        {this.props.model.diagram.name}
-      </div>
-    );
-    tabs.push(
-      <div class="tab" key={2}>
-        {this.props.model.diagram.name}
-      </div>
-    );
+    for(let i = 0;i<this.props.model.diagrams.length;i++){
+      tabs.push(
+        <Tab model={this.props.model} tabId={i} key={i}>
+        </Tab>
+      );
+    }
     return tabs;
   }
   render(){
