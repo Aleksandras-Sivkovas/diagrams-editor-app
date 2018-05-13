@@ -136,6 +136,22 @@ export default class DiagramsEditorModel{
 	}
 
 	@action
+	_generateUseCasesFromDvcmModelByTransaction(response){
+		const generator = new UseCasesGenerator();
+		const diagrams = generator.generateByTransactionFromDVCM(response.model);
+		for(let diagram of diagrams){
+			this.currentDiagramindex = this._getNextDiagramIndex();
+			this.diagrams.set(this.currentDiagramindex,diagram);
+		}
+		this._navigateToDiagram();
+	}
+	@action
+	_generateUseCasesFromDvcmFileByTransaction(){
+		this._storage.onLoad = this._generateUseCasesFromDvcmModelByTransaction.bind(this);
+		this._storage.load();
+	}
+
+	@action
 	navigateToNewDiagram(){
 		this._navigation = paths.NEW_DIAGRAM;
 	}
@@ -162,6 +178,11 @@ export default class DiagramsEditorModel{
 	@action
 	navigateToGenerateUseCases(){
 		this._generateUseCasesFromDvcmFile();
+	}
+
+	@action
+	navigateToGenerateUseCasesByTransaction(){
+		this._generateUseCasesFromDvcmFileByTransaction();
 	}
 
 	@action

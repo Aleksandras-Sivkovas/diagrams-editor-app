@@ -4,7 +4,8 @@ import {localizable} from "localizable";
 
 @localizable({
 	newDiagram : "New diagram",
-	generateFromDVCM : "Generate from DVCM"
+	generateFromDVCM : "Generate from DVCM",
+	generateByTransactionFromDVCM : "Generate by transaction from DVCM"
 })
 @observer
 export default class NewUseCases extends React.Component{
@@ -14,6 +15,10 @@ export default class NewUseCases extends React.Component{
 
   handleGenerateClicked(){
     this.model.navigateToGenerateUseCases();
+	}
+
+	handleGenerateByTransactionClicked(){
+    this.model.navigateToGenerateUseCasesByTransaction();
 	}
 	render() {
     this.model = this.props.model;
@@ -34,6 +39,15 @@ export default class NewUseCases extends React.Component{
       >
 				<div class="text">
         	{this.locale.generateFromDVCM}
+				</div>
+      </div>,
+			<div
+          class="button"
+          onClick={this.handleGenerateByTransactionClicked.bind(this)}
+          key="generate-by-transaction"
+      >
+				<div class="text">
+        	{this.locale.generateByTransactionFromDVCM}
 				</div>
       </div>
 		];

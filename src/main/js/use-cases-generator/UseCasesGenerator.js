@@ -5,9 +5,35 @@ export default class UseCasesGenerator {
 
   generate(model){
     if(model instanceof DVCMModel){
-      return this.generateFromDVCM(model);
+      return this.generateFromDVCM(...arguments);
     }
     return null;
+  }
+
+  generateByTransactionFromDVCM(dvcm){
+    const transactions = dvcm.transactions;
+    const sequenceFlows = dvcm.sequenceFlows;
+
+    const diagrams = [];
+    for(let transaction of transactions){
+        const useCases = [];
+        const edges = [];
+        const process = transaction.processes.length > 0 ?
+            transaction.processes[0] : null;
+        if(process == null){
+          continue;
+        }
+        const transactionSequenceFlows = this.
+            _getTransactionSequenceFlows(transaction,sequenceFlows);
+        const flowUsecases = this.
+                _getUseCasesForProcess(process,transactionSequenceFlows);
+        this._addNewUsecases(edges,useCases,flowUsecases,transaction)
+        diagrams.push(
+          this._createUseCaseDiagramModel(dvcm.name+":"+transaction.name,useCases,edges)
+        );
+  	}
+
+  	return diagrams;
   }
 
   generateFromDVCM(dvcm){

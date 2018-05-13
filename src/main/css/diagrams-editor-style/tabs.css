@@ -7,6 +7,9 @@
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: space-evenly;
+
+  box-sizing: border-box;
+  border-bottom:groove #CCC 8px;
 }
 .diagrams-editor .content .tabs>.tab{
   min-width: 0px;

@@ -43,6 +43,38 @@ export default class UseCasesGenerator {
   	return this._createUseCaseDiagramModel(dvcm.name,useCases,edges,actors);
   }
 
+  generateByTransactionFromDVCM(dvcm){
+    const transactions = dvcm.transactions;
+    const sequenceFlows = dvcm.sequenceFlows;
+
+    const diagrams = [];
+    for(let transaction of transactions){
+      const useCases = [];
+      const edges = [];
+      const actors = new Map();
+      const useCasesFunctionsmap = new Map();
+
+      if(transaction.processes.length < 1){
+        continue;
+      }
+      const process = transaction.processes[0];
+      const transactionSequenceFlows = this.
+          _getTransactionSequenceFlows(transaction,sequenceFlows);
+  		const cycle = this.
+          _getCycleForProcess(process,transactionSequenceFlows);
+      if(!cycle){
+        continue;
+      }
+  		this._addUseCases(edges,useCases,actors,cycle,transaction,useCasesFunctionsmap);
+
+      diagrams.push(
+        this._createUseCaseDiagramModel(dvcm.name+":"+transaction.name,useCases,edges,actors)
+      );
+  	}
+
+  	return diagrams;
+  }
+
   _getTransactionSequenceFlows(transaction,sequenceFlows){
     const activities = transaction.activities;
     return sequenceFlows.filter(flow => (

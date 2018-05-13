@@ -20,13 +20,19 @@ export default class DiagramContainer extends React.Component{
     return tabs;
   }
   render(){
-    return [
-      <div class="tabs" key="tabs">
-        {this._getTabs()}
-      </div>,
+    const components = [];
+    if(this.props.model.diagrams.size > 1){
+      components.push(
+        <div class="tabs" key="tabs">
+          {this._getTabs()}
+        </div>
+      );
+    }
+    components.push(
       <div class="diagram" id="diagram-container" key="diagram-container">
         {this.props.children}
       </div>
-    ]
+    );
+    return components;
   }
 };
