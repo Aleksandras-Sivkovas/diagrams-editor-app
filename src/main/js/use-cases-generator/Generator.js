@@ -135,6 +135,46 @@ export default class UseCasesGenerator {
         )
       );
     }
+
+
+    const useCases = this._createUseCasesObject();
+    useCases.unusedUseCases = dvcmData.useCases.unusedUseCases;
+    const edges = dvcmData.edges.filter(edge=>{
+      if(edge instanceof Association){
+        return useCases.unusedUseCases.includes(edge.target);
+      }
+      if(edge instanceof Inclusion){
+        return useCases.unusedUseCases.includes(edge.target);
+      }
+      if(edge instanceof Extension){
+        return (
+          useCases.unusedUseCases.includes(edge.target) &&
+          useCases.unusedUseCases.includes(edge.source)
+        );
+      }
+    });
+
+    const actors = new Map();
+    for(let entry of dvcmData.actors.entries()){
+      const actor =  entry[1];
+      if(
+          edges.some(edge =>(
+            edge.source == actor
+          ))
+      ){
+        actors.set(entry[0],actor);
+      }
+    }
+    diagrams.push(
+      this._createUseCaseDiagramModel(
+        dvcm.name+":" + " not in transactions",
+        useCases,
+        edges,
+        actors
+      )
+    );
+
+
   	return diagrams;
   }
 
