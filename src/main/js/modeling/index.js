@@ -12,6 +12,7 @@ export {default as LabelView} from "./view/LabelView.js";
 export {default as move} from "./view/decorators/move.js";
 export {default as select} from "./view/decorators/select.js";
 export {default as resize} from "./view/decorators/resize.js";
+export {default as dashedLine} from "./view/decorators/dashedLine.js";
 
 export {default as HierarchyRelation} from "./model/HierarchyRelation.js";
 export {default as Row} from "./model/Row.js";

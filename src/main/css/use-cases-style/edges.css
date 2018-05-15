@@ -1,9 +1,3 @@
-.use-cases  .edge.inclusion ,
-.use-cases  .edge.extension
-{
-  border-top-style:dashed;
-}
-
 .use-cases  .edge.inclusion .edge-end-right,
 .use-cases  .edge.extension .edge-end-right{
     width: 10px;

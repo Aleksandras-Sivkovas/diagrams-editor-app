@@ -3,4 +3,27 @@
   border:none;
   border-top:3px solid #000;
   position:absolute;
+  box-sizing: border-box;
+}
+
+.diagram  .line.dashed-line
+{
+  border:none;
+  height:1px;
+}
+.diagram  .line.dashed-line .dash-container{
+  position:absolute;
+  width:100%;
+  height:100%;
+  background-color: #fff;
+  white-space: nowrap;
+  z-index:-100;
+}
+.diagram  .line.dashed-line .dash{
+  border:none;
+  background-color: #000;
+  height:100%;
+  width:10px;
+  margin-right:8px;
+  float:left;
 }

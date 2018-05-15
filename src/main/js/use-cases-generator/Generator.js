@@ -103,9 +103,17 @@ export default class UseCasesGenerator {
       useCases.generalUseCases = dvcmData.useCases.
             generalUseCases.filter(useCasesFilterFunction);
       const allUseCases = this._getAllNodesUseCasesSet(useCases);
-      const edges = dvcmData.edges.filter(edge=>(
-        allUseCases.has(edge.target)
-      ));
+      const edges = dvcmData.edges.filter(edge=>{
+        if(edge instanceof Association){
+          return allUseCases.has(edge.target);
+        }
+        if(edge instanceof Inclusion){
+          return allUseCases.has(edge.target);
+        }
+        if(edge instanceof Extension){
+          return (allUseCases.has(edge.target) && allUseCases.has(edge.source));
+        }
+      });
 
       const actors = new Map();
       for(let entry of dvcmData.actors.entries()){
@@ -163,8 +171,13 @@ export default class UseCasesGenerator {
   _addUseCases(edges,useCases,actors,cycle,transaction,mappings){
     const mainUseCase = new UseCase(transaction.name);
     useCases.transactionuseCases.push(mainUseCase);
-    this._addProcessAsActor(edges,actors,cycle,mainUseCase);
+
+    let useCaseTransactions = new Set();
+    mappings.useCasesTransactionsMap.set(mainUseCase,useCaseTransactions);
+    useCaseTransactions.add(transaction);
+
     const mainPrefix = transaction.name + ":";
+    const fuMap = new Map();
   	for(let flow of cycle.cycledFlows){
       if(flow.target == cycle.process){
         continue;
@@ -191,6 +204,9 @@ export default class UseCasesGenerator {
       let associationName = flow.name;
       association.name = associationName;
 
+
+      fuMap.set(flow.target,useCase);
+
       let functionUseCases = mappings.useCasesFunctionsmap.get(flow.target);
       if(!functionUseCases){
         functionUseCases = [];
@@ -202,8 +218,10 @@ export default class UseCasesGenerator {
       mappings.useCasesTransactionsMap.set(useCase,useCaseTransactions);
       useCaseTransactions.add(transaction);
   	}
+    this._addProcessAsActor(edges,actors,cycle,mainUseCase,fuMap);
+
   }
-  _addProcessAsActor(edges,actors,cycle,useCase){
+  _addProcessAsActor(edges,actors,cycle,useCase,fuMap){
     const actorName = cycle.start.source.name;
     let actor = actors.get(actorName);
     if(!actor){
@@ -211,15 +229,30 @@ export default class UseCasesGenerator {
       actors.set(actorName,actor);
     }
 
-    const association = new Association();
-    edges.push(association);
-    association.source = actor;
-    association.target = useCase;
-    let associationName = cycle.start.name;
+    const nameMap = new Map();
     for(let end of cycle.ends){
-      associationName += " " + end.name;
+      const fu = fuMap.get(end.source);
+      let name = nameMap.get(fu);
+      if(!name){
+        name = "";
+      }
+      nameMap.set(fu,name + " " + end.name);
     }
-    association.name = associationName;
+
+    let fu = fuMap.get(cycle.start.target);
+    let name = nameMap.get(fu);
+    if(!name){
+      name = "";
+    }
+    nameMap.set(fu,cycle.start.name + " " + name);
+
+    for(fu of nameMap.keys()){
+      const association = new Association();
+      edges.push(association);
+      association.source = actor;
+      association.target = fu;
+      association.name = nameMap.get(fu);
+    }
   }
   _addCycledFlows = function(cycledFlows,currentPath, newFlow,process,sequenceFlows){
     if(currentPath.includes(newFlow)){
