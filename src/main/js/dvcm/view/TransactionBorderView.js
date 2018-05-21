@@ -1,9 +1,10 @@
 import React from 'react';
 import {observer} from "mobx-react";
-import {LineView,select} from "modeling";
+import {LineView,select,dashedLine} from "modeling";
 
 @select
 @observer
+@dashedLine
 export default class TransactionBorderView extends LineView {
 
 	initialize(){

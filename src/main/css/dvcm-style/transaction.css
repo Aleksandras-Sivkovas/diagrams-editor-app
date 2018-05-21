@@ -1,20 +1,14 @@
-.dvcm  .line.transaction-border{
-  overflow:visible;
-  border-top-style: double;
-  border-top-color: black;
-  border-top-width: 4px;
-  border-bottom: none;
-  border-left: none;
-  border-right:none;
-  z-index:100;
-}
 
-.dvcm .line.selected.transaction-border{
-  border-top-width: 8px;
-}
 
 .transaction-name{
   position:absolute;
   padding-left:10px;
   z-index:80;
+}
+
+.diagram .line.dashed-line.transaction-border {
+  height: 2px;
+}
+.diagram .line.dashed-line.transaction-border.selected {
+  height: 4px;
 }
