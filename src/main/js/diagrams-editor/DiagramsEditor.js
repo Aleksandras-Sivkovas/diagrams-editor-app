@@ -20,6 +20,7 @@ import * as useCases from "use-cases";
 })
 @observer
 export default class DiagramsEditor extends React.Component{
+
   constructor(){
     super();
     this._editorModel = new DiagramsEditorModel();
@@ -28,6 +29,7 @@ export default class DiagramsEditor extends React.Component{
 		window.editorModel = this._editorModel;
 		window.dvcm = dvcm;
 		window.useCases = useCases;
+		this._editorModel.localeListener = this; // TODO: this is bad....
   }
   _getDiagram(){
     if(!this._editorModel.diagram){
@@ -73,7 +75,7 @@ export default class DiagramsEditor extends React.Component{
     return <Welcome/>;
 	}
 	render() {
-    document.title = this.locale.diagramsEditor;
+		document.title = this.locale.diagramsEditor;
 		return (
       <div class="diagrams-editor">
   			<div class="controlls">

@@ -4,6 +4,8 @@ import {DVCM} from "dvcm";
 import {UseCases} from "use-cases";
 import DiagramsLocalStorage from "./DiagramsLocalStorage.js";
 import {UseCasesGenerator} from "use-cases-generator"
+import {localeSettings} from "localizable";
+import {lt_LT} from "./localizations.js";
 
 const paths = {
 		DIAGRAM: "/diagram",
@@ -12,9 +14,12 @@ const paths = {
 		EXPORT: "/export"
 };
 
+
 export default class DiagramsEditorModel{
 
 	_diagramIndex = 0;
+
+	_localeSettings = localeSettings;
 
 	@observable
 	diagrams = new Map();
@@ -37,6 +42,20 @@ export default class DiagramsEditorModel{
 
 	constructor(){
 		this._createStorage();
+	}
+
+	_getlocaleByString(str){
+		switch(str) {
+	    case "lt_LT":
+	        return lt_LT;
+		}
+		return null;
+	}
+
+
+	setLocale(str){
+		const locale = this._getlocaleByString(str);
+		this._localeSettings.locale = locale;
 	}
 
 	@computed

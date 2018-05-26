@@ -3,6 +3,7 @@ import {Node} from 'modeling';
 import Activity from "./Activity";
 import Pool from './Pool.js';
 import DVCMModel from './DVCMModel.js';
+import {localeSettings} from "localizable";
 
 export default class DVCM extends Node {
 
@@ -45,13 +46,13 @@ export default class DVCM extends Node {
 
 	_addFunctionsPool(){
 		const pool = new Pool();
-		pool.name = "Functions";
+		pool.name = localeSettings.localize("dvcm_functions","Functions");
 		this.append(pool);
 	}
 
 	_addProcessPool(){
 		const pool = new Pool();
-		pool.name = "Processes";
+		pool.name = localeSettings.localize("dvcm_processes","Processes");
 		this.append(pool);
 	}
 
