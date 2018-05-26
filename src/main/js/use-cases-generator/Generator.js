@@ -379,13 +379,15 @@ export default class UseCasesGenerator {
   	}
   }
 
-  _addActors(useCasesComponent,actors){
+  _addActors(useCasesComponent,actors,componentMap){
     let x = 10;
     let y = 10;
     for(let actor of actors){
-      actor.position.x = x;
-      actor.position.y = y;
-      useCasesComponent.append(actor);
+      const created = new Actor(actor.name);
+      componentMap.set(actor,created);
+      created.position.x = x;
+      created.position.y = y;
+      useCasesComponent.append(created);
       y += actor.height + 20;
     }
   }
@@ -421,6 +423,7 @@ export default class UseCasesGenerator {
 
   }
   _createUseCaseDiagramModel(name,useCases,edges,actors){
+
     const useCasesComponent = new UseCases();
     const model = useCasesComponent.model;
     useCasesComponent.model.name = name;
@@ -430,25 +433,33 @@ export default class UseCasesGenerator {
     useCasesComponent.append(system);
 
     // const actorsList = actors.values();
-    this._addActors(useCasesComponent,actors.values());
+
+    const componentMap = new Map();
+
+    this._addActors(useCasesComponent,actors.values(),componentMap);
 
     const levels = this._addToLevels(edges,useCases);
     let maxY = 0;
     for(let level of levels){
       for(let useCase of level.cases){
-        useCase.position.x = level.x;
-        useCase.position.y = level.y;
+        const created = new UseCase(useCase.name);
+        componentMap.set(useCase,created);
+        created.position.x = level.x;
+        created.position.y = level.y;
         level.y += useCase.height + 50;
         if(level.y > maxY){
           maxY = level.y;
         }
-        system.append(useCase);
+        system.append(created);
       }
     }
 
     for(let edge of edges){
-      model.addEdge(edge);
-      const ends = this._getLeftRight(edge);
+      const created = new edge.constructor();
+      created.source = componentMap.get(edge.source);
+      created.target = componentMap.get(edge.target);
+      model.addEdge(created);
+      const ends = this._getLeftRight(created);
       ends.leftPoint.y = Math.floor(ends.left.height/2);
       ends.leftPoint.x = ends.left.width;
 
