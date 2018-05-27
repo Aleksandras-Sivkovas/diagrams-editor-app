@@ -14,6 +14,8 @@ const paths = {
 		EXPORT: "/export"
 };
 
+const localeMap = new Map();
+localeMap.set("lt_LT",lt_LT);
 
 export default class DiagramsEditorModel{
 
@@ -44,18 +46,16 @@ export default class DiagramsEditorModel{
 		this._createStorage();
 	}
 
-	_getlocaleByString(str){
-		switch(str) {
-	    case "lt_LT":
-	        return lt_LT;
-		}
-		return null;
+	set locale(str){
+		const locale = localeMap.get(str);
+		this._localeSettings.locale = locale;
 	}
 
-
-	setLocale(str){
-		const locale = this._getlocaleByString(str);
-		this._localeSettings.locale = locale;
+	get locale(){
+		if(!this._localeSettings.locale){
+			return null;
+		}
+		return this._localeSettings.locale.localeCode;
 	}
 
 	@computed
@@ -216,6 +216,15 @@ export default class DiagramsEditorModel{
 
 	_getNextDiagramIndex(){
 		return this._diagramIndex++;
+	}
+
+	@action
+	executeCancel(){
+		if(this.diagram){
+			this._navigateToDiagram();
+			return;
+		}
+		this.navigateToWelcome();
 	}
 
 	@action

@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import {localizable} from "localizable";
+import CancelButton from "./CancelButton.js";
 
 @localizable({
 	dvcm : "DVCM",
@@ -37,7 +38,8 @@ export default class NewDiagram extends React.Component{
 				<div class="text">
         	{this.locale.useCases}
 				</div>
-      </div>
+      </div>,
+			<CancelButton model={this.model} key="cancel"/>
 		];
 	}
 };

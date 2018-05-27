@@ -1,5 +1,7 @@
 
 const lt_LT = {
+    localeName: "Lietuvių",
+    localeCode: "lt_LT",
     diagramsEditor : "Diagramų tvarkyklė",
     welcome : "Diagramų tvarkyklė 0.0.0",
     ui:"Grafinė sąsaja",
@@ -19,7 +21,8 @@ const lt_LT = {
     extend: "Išplečia",
     include: "Įtraukia",
     dvcm_functions: "Valdymo funkcijos",
-    dvcm_processes: "Veiklos procesai"
+    dvcm_processes: "Veiklos procesai",
+    cancel:"Atšaukti"
 };
 
 export {lt_LT};

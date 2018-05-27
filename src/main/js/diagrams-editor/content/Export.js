@@ -1,6 +1,7 @@
 import React from 'react';
 import {observer} from "mobx-react";
 import {localizable} from "localizable";
+import CancelButton from "./CancelButton.js";
 
 @localizable({
 	png : "PNG",
@@ -37,7 +38,9 @@ export default class Export extends React.Component{
 				<div class="text">
         	{this.locale.json}
 				</div>
-      </div>
+      </div>,
+			<CancelButton model={this.model} key="cancel">
+			</CancelButton>
 		];
 	}
 };
