@@ -1,5 +1,6 @@
 import {DVCMModel,Activity,SequenceFlow,Transaction} from "dvcm";
-import {UseCasesModel,UseCases,UseCase,Association,Inclusion,Extension,System,Actor} from "use-cases"
+import {UseCasesModel,UseCases,UseCase,Association,Inclusion,
+    Extension,System,Actor} from "use-cases"
 
 export default class UseCasesGenerator {
 
@@ -294,7 +295,8 @@ export default class UseCasesGenerator {
       association.name = nameMap.get(fu);
     }
   }
-  _addCycledFlows = function(cycledFlows,currentPath, newFlow,process,sequenceFlows){
+  _addCycledFlows = function(cycledFlows,currentPath,
+      newFlow,process,sequenceFlows){
     if(currentPath.includes(newFlow)){
       return false;
     }
@@ -305,7 +307,9 @@ export default class UseCasesGenerator {
       cycledFlows.push(newFlow);
       return true;
     }
-    const nextFlows = sequenceFlows.filter(flow => (flow.source == newFlow.target));
+    const nextFlows = sequenceFlows.filter(flow => (
+      flow.source == newFlow.target
+    ));
     if(nextFlows.length == 0){
       return false;
     }
@@ -313,7 +317,8 @@ export default class UseCasesGenerator {
     currentPath.push(newFlow);
     let pathFound = false;
     for(let flow of nextFlows){
-      if(this._addCycledFlows(cycledFlows,currentPath,flow,process,sequenceFlows)){
+      if(this._addCycledFlows(cycledFlows,currentPath,flow,
+          process,sequenceFlows)){
         pathFound = true;
         // No brake because we need to recursivelly add all paths
       }
@@ -343,10 +348,12 @@ export default class UseCasesGenerator {
 
         let useCaseTransactions = mappings.useCasesTransactionsMap.get(useCase);
         if(useCaseTransactions){
-          let newUseCaseTransactions = mappings.useCasesTransactionsMap.get(generalUseCase);
+          let newUseCaseTransactions = mappings.useCasesTransactionsMap
+              .get(generalUseCase);
           if(!newUseCaseTransactions){
             newUseCaseTransactions = new Set();
-            mappings.useCasesTransactionsMap.set(generalUseCase,newUseCaseTransactions);
+            mappings.useCasesTransactionsMap.set(generalUseCase,
+                newUseCaseTransactions);
           }
           for(let transaction of useCaseTransactions){
             newUseCaseTransactions.add(transaction);
@@ -458,6 +465,7 @@ export default class UseCasesGenerator {
       const created = new edge.constructor();
       created.source = componentMap.get(edge.source);
       created.target = componentMap.get(edge.target);
+      created.name = edge.name;
       model.addEdge(created);
       const ends = this._getLeftRight(created);
       ends.leftPoint.y = Math.floor(ends.left.height/2);

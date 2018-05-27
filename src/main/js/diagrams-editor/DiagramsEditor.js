@@ -29,7 +29,6 @@ export default class DiagramsEditor extends React.Component{
 		window.editorModel = this._editorModel;
 		window.dvcm = dvcm;
 		window.useCases = useCases;
-		this._editorModel.localeListener = this; // TODO: this is bad....
   }
   _getDiagram(){
     if(!this._editorModel.diagram){
